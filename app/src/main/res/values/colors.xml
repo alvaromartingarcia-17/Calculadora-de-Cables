@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colores básicos -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Título -->
+    <color name="fondoTitulo">#6C3B2A</color>
+
+    <!-- Botones -->
+    <color name="fondoBotones">#6C3B2A</color>
+
+    <!-- Texto -->
+    <color name="textoErrores">#FF0000</color>
 </resources>
