@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <!-- Título -->
+            <TextView
+                android:id="@+id/textViewDatosCable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/fondoTitulo"
+                android:fontFamily="sans-serif-medium"
+                android:text="Datos Cables"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:padding="5dp" />
+
+            <!-- Nombre Circuito -->
+            <EditText
+                android:id="@+id/editTextNombreCircuito"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/recuadro_texto"
+                android:ems="10"
+                android:fontFamily="sans-serif-medium"
+                android:hint="Nombre del circuito"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textSize="24sp" />
+
+
+            <!-- Datos -->
+            <EditText
+                android:id="@+id/editTextPotencia"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/recuadro_texto"
+                android:ems="10"
+                android:fontFamily="sans-serif-medium"
+                android:hint="Potencia"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editTextTension"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/recuadro_texto"
+                android:ems="10"
+                android:fontFamily="sans-serif-medium"
+                android:hint="Tensión"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editTextLongitud"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/recuadro_texto"
+                android:ems="10"
+                android:fontFamily="sans-serif-medium"
+                android:hint="Longitud"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewCaidaTensionMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginHorizontal="20dp"
+                android:ems="10"
+                android:fontFamily="sans-serif-medium"
+                android:text="Caída de tensión máxima:"
+                android:textSize="24sp" />
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:background="@android:drawable/btn_dropdown"
+                android:entries="@array/opciones_caida_tension" />
+
+            <EditText
+                android:id="@+id/editTextProteccionSelec"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/recuadro_texto"
+                android:ems="10"
+                android:fontFamily="sans-serif-medium"
+                android:hint="Protección seleccionada (A)"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editTextProteccionTermica"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/recuadro_texto"
+                android:ems="10"
+                android:fontFamily="sans-serif-medium"
+                android:hint="Protección térmica"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editTextProteccionDiferencial"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/recuadro_texto"
+                android:ems="10"
+                android:fontFamily="sans-serif-medium"
+                android:hint="Protección diferencial"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textSize="24sp" />
+
+            <!--Botones -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/botonAtras"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/fondoBotones"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Atrás"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/botonSiguiente"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/fondoBotones"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Siguiente"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

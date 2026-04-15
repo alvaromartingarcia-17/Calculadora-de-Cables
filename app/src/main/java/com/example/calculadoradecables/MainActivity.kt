@@ -3,8 +3,6 @@ package com.example.calculadoradecables
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +11,9 @@ class MainActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_main)
         //setContentView(R.layout.pantalla_inicio_sesion)
         //setContentView(R.layout.pantalla_menu_principal)
-        setContentView(R.layout.pantalla_listado_cables)
+        //setContentView(R.layout.pantalla_listado_cables)
         //setContentView(R.layout.listado_cables)
+        //setContentView(R.layout.pantalla_datos_cable1)
+        setContentView(R.layout.pantalla_datos_cable2)
     }
 }

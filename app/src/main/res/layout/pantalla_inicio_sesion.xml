@@ -24,7 +24,9 @@
             android:text="Inicio Sesión"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:padding="5dp"/>
 
         <!--Logo-->
         <ImageView
@@ -143,7 +145,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="Iniciar sesión"
                 android:textColor="@color/white"
-                android:textSize="19sp"
+                android:textSize="20sp"
                 android:textStyle="bold"/>
 
             <Button
@@ -156,7 +158,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:text="Crear Usuario"
                 android:textColor="@color/white"
-                android:textSize="19sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
