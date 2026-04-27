@@ -32,63 +32,54 @@
 
             <!-- Datos -->
             <TextView
-                android:id="@+id/textViewCaidaTensionMax"
+                android:id="@+id/textViewTipoDiferencial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginHorizontal="20dp"
-                android:ems="10"
                 android:fontFamily="sans-serif-medium"
-                android:text="Caída de tensión máxima:"
+                android:text="Tipo diferencial:"
                 android:textSize="24sp" />
 
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/spinner2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="sans-serif-medium"
                 android:background="@android:drawable/btn_dropdown"
-                android:entries="@array/opciones_caida_tension" />
+                android:entries="@array/opciones_tipo_diferencial" />
 
-            <EditText
-                android:id="@+id/editTextProteccionSelec"
+            <TextView
+                android:id="@+id/textViewSensibilidadDiferencial"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_marginHorizontal="20dp"
-                android:background="@drawable/recuadro_texto"
-                android:ems="10"
                 android:fontFamily="sans-serif-medium"
-                android:hint="Protección seleccionada (A)"
-                android:inputType="text"
-                android:padding="5dp"
+                android:text="Sensibilidad del diferencial:"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/editTextProteccionTermica"
+            <Spinner
+                android:id="@+id/spinner3"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:layout_marginHorizontal="20dp"
-                android:background="@drawable/recuadro_texto"
-                android:ems="10"
                 android:fontFamily="sans-serif-medium"
-                android:hint="Protección térmica"
-                android:inputType="text"
-                android:padding="5dp"
-                android:textSize="24sp" />
+                android:background="@android:drawable/btn_dropdown"
+                android:entries="@array/opciones_sensibilidad_diferencial" />
 
             <EditText
-                android:id="@+id/editTextProteccionDiferencial"
+                android:id="@+id/editTextSeccionConductor"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="20dp"
                 android:background="@drawable/recuadro_texto"
                 android:ems="10"
                 android:fontFamily="sans-serif-medium"
-                android:hint="Protección diferencial"
+                android:hint="Sección del conductor"
                 android:inputType="text"
                 android:padding="5dp"
                 android:textSize="24sp" />
