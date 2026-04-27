@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         //setContentView(R.layout.pantalla_datos_cable1)
         //setContentView(R.layout.pantalla_datos_cable2)
         //setContentView(R.layout.pantalla_datos_cable3)
-        setContentView(R.layout.pantalla_datos_cable4)
+        //setContentView(R.layout.pantalla_datos_cable4)
+        setContentView(R.layout.pantalla_carga)
     }
 }
