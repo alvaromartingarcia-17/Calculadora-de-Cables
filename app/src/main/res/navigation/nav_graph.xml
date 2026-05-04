@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/iniciarSesionFragmento">
+    <fragment
+        android:id="@+id/iniciarSesionFragmento"
+        android:name="com.example.calculadoradecables.IniciarSesionFragmento"
+        android:label="IniciarSesionFragmento" />
+    <fragment
+        android:id="@+id/menuPrincipalFragmento"
+        android:name="com.example.calculadoradecables.MenuPrincipalFragmento"
+        android:label="MenuPrincipalFragmento" />
+    <fragment
+        android:id="@+id/fragmentoVerCables"
+        android:name="com.example.calculadoradecables.listacables.FragmentoVerCables"
+        android:label="FragmentoVerCables" />
+    <fragment
+        android:id="@+id/pantalla1"
+        android:name="com.example.calculadoradecables.crearcables.Pantalla1"
+        android:label="Pantalla1" />
+    <fragment
+        android:id="@+id/pantalla2"
+        android:name="com.example.calculadoradecables.crearcables.Pantalla2"
+        android:label="Pantalla2" />
+    <fragment
+        android:id="@+id/pantalla3"
+        android:name="com.example.calculadoradecables.crearcables.Pantalla3"
+        android:label="Pantalla3" />
+    <fragment
+        android:id="@+id/pantalla4"
+        android:name="com.example.calculadoradecables.crearcables.Pantalla4"
+        android:label="Pantalla4" />
+</navigation>
