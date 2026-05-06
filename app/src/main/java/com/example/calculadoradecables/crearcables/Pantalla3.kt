@@ -24,6 +24,8 @@ class Pantalla3 : Fragment() {
     private var _binding: PantallaDatosCable3Binding? = null
     private val binding get() = _binding!!
 
+    var esValido = false
+
     private val viewModel: CableViewModel by activityViewModels()
 
     private var listatipodiferencial: MutableList<String> = mutableListOf()
@@ -53,12 +55,15 @@ class Pantalla3 : Fragment() {
                             response.body()!!
                         )
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        binding.spinner2.adapter = adapter
+                        binding.spinner3.adapter = adapter
 
                         if (viewModel.datoscable.value?.get("tipodiferencial") != null) {
                             val posicion = listatipodiferencial.indexOf(viewModel.datoscable.value?.get("tipodiferencial"))
                             Log.d("nose","posicion array $posicion")
-                            if (posicion >= 0) binding.spinner2.setSelection(posicion)
+                            if (posicion >= 0){
+                                binding.editTextProteccionDiferencial.setText(viewModel.datoscable.value?.get("protecciondiferencial"))
+                                binding.spinner3.setSelection(posicion)
+                            }
                         }
                     }
                 }
@@ -87,13 +92,13 @@ class Pantalla3 : Fragment() {
                             response.body()!!
                         )
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        binding.spinner3.adapter = adapter
+                        binding.spinner4.adapter = adapter
 
                         if (viewModel.datoscable.value?.get("sensibilidadiferencial") != null) {
                             val posicion = listasensibilidaddiferencial.indexOf(viewModel.datoscable.value?.get("sensibilidadiferencial"))
                             Log.d("nose","posicion array $posicion")
                             if (posicion >= 0){
-                                binding.spinner3.setSelection(posicion)
+                                binding.spinner4.setSelection(posicion)
                                 binding.editTextSeccionConductor.setText(viewModel.datoscable.value?.get("seccionconductor"))
                             }
                         }
@@ -107,21 +112,65 @@ class Pantalla3 : Fragment() {
             })
 
         binding.botonSiguiente.setOnClickListener {
-            viewModel.meterdatos("tipodiferencial",binding.spinner2.selectedItem.toString())
-            viewModel.meterdatos("sensibilidadiferencial",binding.spinner3.selectedItem.toString())
-            viewModel.meterdatos("seccionconductor",binding.editTextSeccionConductor.text.toString())
-            Log.d("nose","Datos del cable del view model Pantalla3 Siguiente: ${viewModel.depuraciondatos()}")
-            findNavController().navigate(R.id.pantalla4)
+            validarPantalla3()
+            if (esValido) {
+                viewModel.meterdatos("protecciondiferencial",binding.editTextProteccionDiferencial.text.toString())
+                viewModel.meterdatos("tipodiferencial", binding.spinner3.selectedItem.toString())
+                viewModel.meterdatos("sensibilidadiferencial", binding.spinner4.selectedItem.toString())
+                viewModel.meterdatos("seccionconductor", binding.editTextSeccionConductor.text.toString())
+
+                Log.d(
+                    "nose",
+                    "Datos del cable del view model Pantalla3 Siguiente: ${viewModel.depuraciondatos()}"
+                )
+
+                findNavController().navigate(R.id.pantalla4)
+            }
         }
 
         binding.botonAtras.setOnClickListener {
-            viewModel.meterdatos("tipodiferencial",binding.spinner2.selectedItem.toString())
-            viewModel.meterdatos("sensibilidadiferencial",binding.spinner3.selectedItem.toString())
+            viewModel.meterdatos("protecciondiferencial",binding.editTextProteccionDiferencial.text.toString())
+            viewModel.meterdatos("tipodiferencial",binding.spinner3.selectedItem.toString())
+            viewModel.meterdatos("sensibilidadiferencial",binding.spinner4.selectedItem.toString())
             viewModel.meterdatos("seccionconductor",binding.editTextSeccionConductor.text.toString())
             Log.d("nose","Datos del cable del view model Pantalla3 Siguiente: ${viewModel.depuraciondatos()}")
             findNavController().navigate(R.id.pantalla2)
         }
     }
+
+    // Comprobación datos
+    fun validarPantalla3() {
+        val proteccionDiferencialStr = binding.editTextProteccionDiferencial.text.toString().trim()
+        val seccionConductorStr = binding.editTextSeccionConductor.text.toString().trim()
+
+        esValido = true
+
+        // PROTECCIÓN DIFERENCIAL
+        if (proteccionDiferencialStr.isEmpty()) {
+            binding.error7.text = "Introduce la protección diferencial"
+            binding.error7.visibility = View.VISIBLE
+            esValido = false
+        } else {
+            binding.error7.visibility = View.GONE
+        }
+
+        // SECCIÓN CONDUCTOR
+        val seccionConductor = seccionConductorStr.toDoubleOrNull()
+        if (seccionConductorStr.isEmpty()) {
+            binding.error8.text = "Introduce la sección del conductor"
+            binding.error8.visibility = View.VISIBLE
+            esValido = false
+        } else {
+            if (seccionConductor == null || seccionConductor <= 0) {
+                binding.error8.text = "Valor inválido"
+                binding.error8.visibility = View.VISIBLE
+                esValido = false
+            } else {
+                binding.error8.visibility = View.GONE
+            }
+        }
+    }
+
     private fun mostrarSnackbar(mensaje: String) {
         val snackbar = Snackbar.make(binding.root, mensaje, Snackbar.LENGTH_LONG)
         val snackbarText =

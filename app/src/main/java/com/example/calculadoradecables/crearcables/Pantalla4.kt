@@ -27,6 +27,8 @@ class Pantalla4 : Fragment() {
     private var _binding: PantallaDatosCable4Binding? = null
     private val binding get() = _binding!!
 
+    var esValido = false
+
     private val viewModel: CableViewModel by activityViewModels()
 
     private var listalocalizacion: MutableList<String> = mutableListOf()
@@ -57,20 +59,20 @@ class Pantalla4 : Fragment() {
                             response.body()!!
                         )
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
-                        binding.spinner4.adapter = adapter
+                        binding.spinner7.adapter = adapter
 
                         if (viewModel.datoscable.value?.get("sensibilidadiferencial") != null) {
                             val posicion =
                                 listalocalizacion.indexOf(viewModel.datoscable.value?.get("sensibilidadiferencial"))
                             Log.d("nose","posicion array $posicion")
                             if (posicion >= 0) {
-                                binding.spinner4.setSelection(posicion)
-                                binding.editTextFactorCorrecion.setText(
+                                binding.spinner7.setSelection(posicion)
+                                binding.editTextFactorCorreccion.setText(
                                     viewModel.datoscable.value?.get(
                                         "factorcorreccionlugar"
                                     )
                                 )
-                                binding.editTextFactorCorrecion2.setText(
+                                binding.editTextFactorCorreccion2.setText(
                                     viewModel.datoscable.value?.get(
                                         "factorcorrecciontipo"
                                     )
@@ -133,45 +135,88 @@ class Pantalla4 : Fragment() {
             })
 
         binding.botonSiguiente.setOnClickListener {
-            viewModel.meterdatos("tipoconductor", binding.spinner5?.selectedItem.toString())
-            viewModel.meterdatos("tipoconductor2", binding.spinner6?.selectedItem.toString())
-            viewModel.meterdatos("localizacioncanalizacion", binding.spinner4.selectedItem.toString())
-            viewModel.meterdatos("factorcorreccionlugar", binding.editTextFactorCorrecion.text.toString())
-            viewModel.meterdatos("factorcorrecciontipo", binding.editTextFactorCorrecion2.text.toString())
 
-            val nuevocable : Cable = viewModel.cable()!!
-            Log.d("nose", "Datos del cable del view model Pantalla3 Siguiente: ${viewModel.depuraciondatos()}")
-            Log.d("nose", "Datos del cable del nuevocable: $nuevocable")
+            validarPantalla4()
+            if (esValido) {
+                viewModel.meterdatos("tipoconductor", binding.spinner5?.selectedItem.toString())
+                viewModel.meterdatos("tipoconductor2", binding.spinner6?.selectedItem.toString())
+                viewModel.meterdatos("localizacioncanalizacion", binding.spinner7.selectedItem.toString())
+                viewModel.meterdatos("factorcorreccionlugar", binding.editTextFactorCorreccion.text.toString())
+                viewModel.meterdatos("factorcorrecciontipo", binding.editTextFactorCorreccion2.text.toString())
 
-            RetrofitClient.instance.crearcable("nuevocable",nuevocable.usuario, nuevocable)
-                .enqueue(object : Callback<ResponseBody> {
-                    override fun onResponse(
-                        call: Call<ResponseBody>,
-                        response: Response<ResponseBody>
-                    ) {
-                        if (response.isSuccessful) {
-                            val body = response.body()?.string()
-                            Log.d("nose", "Respuesta body: $body")
+                val nuevocable : Cable = viewModel.cable()!!
+                Log.d("nose", "Datos del cable del view model Pantalla3 Siguiente: ${viewModel.depuraciondatos()}")
+                Log.d("nose", "Datos del cable del nuevocable: $nuevocable")
+
+                RetrofitClient.instance.crearcable("nuevocable",nuevocable.usuario, nuevocable)
+                    .enqueue(object : Callback<ResponseBody> {
+                        override fun onResponse(
+                            call: Call<ResponseBody>,
+                            response: Response<ResponseBody>
+                        ) {
+                            if (response.isSuccessful) {
+                                val body = response.body()?.string()
+                                Log.d("nose", "Respuesta body: $body")
+                            }
                         }
-                    }
 
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        Log.e("nose", "Error onfailure: ${t.message}")
-                        mostrarSnackbar("Problemas de conexión")
-                    }
-                })
-
+                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                            Log.e("nose", "Error onfailure: ${t.message}")
+                            mostrarSnackbar("Problemas de conexión")
+                        }
+                    })
+            }
         }
 
         binding.botonAtras.setOnClickListener {
             viewModel.meterdatos("tipoconductor", binding.spinner5?.selectedItem.toString())
             viewModel.meterdatos("tipoconductor2", binding.spinner6?.selectedItem.toString())
-            viewModel.meterdatos("localizacioncanalizacion", binding.spinner4.selectedItem.toString())
-            viewModel.meterdatos("factorcorreccionlugar", binding.editTextFactorCorrecion.text.toString())
-            viewModel.meterdatos("factorcorrecciontipo", binding.editTextFactorCorrecion2.text.toString())
+            viewModel.meterdatos("localizacioncanalizacion", binding.spinner7.selectedItem.toString())
+            viewModel.meterdatos("factorcorreccionlugar", binding.editTextFactorCorreccion.text.toString())
+            viewModel.meterdatos("factorcorrecciontipo", binding.editTextFactorCorreccion2.text.toString())
 
             Log.d("nose", "Datos del cable del view model Pantalla3 Siguiente: ${viewModel.depuraciondatos()}")
             findNavController().navigate(R.id.pantalla3)
+        }
+    }
+
+    // Comprobación datos
+    fun validarPantalla4() {
+        val factorCorreccionStr = binding.editTextFactorCorreccion.text.toString().trim()
+        val factorCorreccionStr2 = binding.editTextFactorCorreccion2.text.toString().trim()
+
+        esValido = true
+
+        // FACTOR CORRECCIÓN LUGAR
+        val factorCorreccion = factorCorreccionStr.toDoubleOrNull()
+        if (factorCorreccionStr.isEmpty()) {
+            binding.error9.text = "Introduce el factor corrección del lugar"
+            binding.error9.visibility = View.VISIBLE
+            esValido = false
+        } else {
+            if (factorCorreccion == null || factorCorreccion <= 0) {
+                binding.error9.text = "Valor inválido"
+                binding.error9.visibility = View.VISIBLE
+                esValido = false
+            } else {
+                binding.error9.visibility = View.GONE
+            }
+        }
+
+        // FACTOR CORRECCIÓN TIPO
+        val factorCorreccion2 = factorCorreccionStr2.toDoubleOrNull()
+        if (factorCorreccionStr2.isEmpty()) {
+            binding.error10.text = "Introduce el factor de correción del tipo"
+            binding.error10.visibility = View.VISIBLE
+            esValido = false
+        } else {
+            if (factorCorreccion2 == null || factorCorreccion2 <= 0) {
+                binding.error10.text = "Valor inválido"
+                binding.error10.visibility = View.VISIBLE
+                esValido = false
+            } else {
+                binding.error10.visibility = View.GONE
+            }
         }
     }
 

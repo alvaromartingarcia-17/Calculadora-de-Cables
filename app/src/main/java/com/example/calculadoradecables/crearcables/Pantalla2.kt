@@ -24,6 +24,8 @@ class Pantalla2 : Fragment() {
     private var _binding: PantallaDatosCable2Binding? = null
     private val binding get() = _binding!!
 
+    var esValido = false
+
     private val viewModel: CableViewModel by activityViewModels()
 
     private var listatensionmax: MutableList<Double> = mutableListOf()
@@ -52,16 +54,18 @@ class Pantalla2 : Fragment() {
                             response.body()!!
                         )
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        binding.spinner1.adapter = adapter
+                        binding.spinner2.adapter = adapter
 
                         if (viewModel.datoscable.value?.get("caidatensionmax") != null) {
                             val posicion = listatensionmax.indexOf(viewModel.datoscable.value?.get("caidatensionmax")?.toDouble())
                             Log.d("nose","posicion array $posicion")
                             if (posicion >= 0){
-                                binding.spinner1.setSelection(posicion)
+                                binding.editTextLongitud.setText(viewModel.datoscable.value?.get("longitud").orEmpty())
+                                binding.spinner2.setSelection(posicion)
                                 binding.editTextProteccionSelec.setText(viewModel.datoscable.value?.get("proteccionseleccionada").orEmpty())
                                 binding.editTextProteccionTermica.setText(viewModel.datoscable.value?.get("protecciontermica").orEmpty())
-                                binding.editTextProteccionDiferencial.setText(viewModel.datoscable.value?.get("protecciondiferencial").orEmpty())
+                                // CAMBIADO A LA PANTALLA 3
+                                // binding.editTextProteccionDiferencial.setText(viewModel.datoscable.value?.get("protecciondiferencial").orEmpty())
                             }
                         }
                     }
@@ -73,24 +77,95 @@ class Pantalla2 : Fragment() {
                 }
             })
 
-
         binding.botonSiguiente.setOnClickListener {
-            viewModel.meterdatos("caidatensionmax",binding.spinner1.selectedItem.toString())
-            viewModel.meterdatos("proteccionseleccionada",binding.editTextProteccionSelec.text.toString())
-            viewModel.meterdatos("protecciontermica",binding.editTextProteccionTermica.text.toString())
-            viewModel.meterdatos("protecciondiferencial",binding.editTextProteccionDiferencial.text.toString())
-            Log.d("nose","Datos del cable del view model Pantalla2 Siguiente: ${viewModel.depuraciondatos()}")
-            findNavController().navigate(R.id.pantalla3)
+            validarPantalla2()
+            if (esValido) {
+                viewModel.meterdatos("longitud", binding.editTextLongitud.text.toString())
+                viewModel.meterdatos("caidatensionmax",binding.spinner2.selectedItem.toString())
+                viewModel.meterdatos("proteccionseleccionada",binding.editTextProteccionSelec.text.toString())
+                viewModel.meterdatos("protecciontermica",binding.editTextProteccionTermica.text.toString())
+                // CAMBIADO A LA PANTALLA 3
+                // viewModel.meterdatos("protecciondiferencial",binding.editTextProteccionDiferencial.text.toString())
+
+                Log.d(
+                    "nose",
+                    "Datos del cable del view model Pantalla2 Siguiente: ${viewModel.depuraciondatos()}"
+                )
+
+                findNavController().navigate(R.id.pantalla3)
+            }
         }
 
         binding.botonAtras.setOnClickListener {
-            viewModel.meterdatos("caidatensionmax",binding.spinner1.selectedItem.toString())
+            viewModel.meterdatos("longitud", binding.editTextLongitud.text.toString())
+            viewModel.meterdatos("caidatensionmax",binding.spinner2.selectedItem.toString())
             viewModel.meterdatos("proteccionseleccionada",binding.editTextProteccionSelec.text.toString())
             viewModel.meterdatos("protecciontermica",binding.editTextProteccionTermica.text.toString())
-            viewModel.meterdatos("protecciondiferencial",binding.editTextProteccionDiferencial.text.toString())
+            // CAMBIADO A LA PANTALLA 3
+            // viewModel.meterdatos("protecciondiferencial",binding.editTextProteccionDiferencial.text.toString())
             Log.d("nose","Datos del cable del view model Pantalla2 atras: ${viewModel.depuraciondatos()}")
             findNavController().navigate(R.id.pantalla1)
         }
+    }
+
+    // Comprobación datos
+    fun validarPantalla2() {
+        val longitudStr = binding.editTextLongitud.text.toString().trim()
+        val proteccionSelecStr = binding.editTextProteccionSelec.text.toString().trim()
+        val proteccionTermicaStr = binding.editTextProteccionTermica.text.toString().trim()
+        // val proteccionDiferencialStr = binding.editTextProteccionDiferencial.text.toString().trim()
+
+        esValido = true
+
+        // LONGITUD
+        val longitud = longitudStr.toDoubleOrNull()
+        if (longitudStr.isEmpty()) {
+            binding.error4.text = "Introduce la longitud"
+            binding.error4.visibility = View.VISIBLE
+            esValido = false
+        } else {
+            if (longitud == null || longitud <= 0) {
+                binding.error4.text = "Valor inválido"
+                binding.error4.visibility = View.VISIBLE
+                esValido = false
+            } else {
+                binding.error4.visibility = View.GONE
+            }
+        }
+
+        // PROTECCIÓN SELECCIONADA
+        val proteccionSelec = proteccionSelecStr.toDoubleOrNull()
+        if (proteccionSelecStr.isEmpty()) {
+            binding.error5.text = "Introduce la protección seleccionada (A)"
+            binding.error5.visibility = View.VISIBLE
+            esValido = false
+        } else {
+            if (proteccionSelec == null || proteccionSelec <= 0) {
+                binding.error5.text = "Valor inválido"
+                binding.error5.visibility = View.VISIBLE
+                esValido = false
+            } else {
+                binding.error5.visibility = View.GONE
+            }
+        }
+
+        // PROTECCIÓN TÉRMICA
+        if (proteccionTermicaStr.isEmpty()) {
+            binding.error6.text = "Introduce la protección térmica"
+            binding.error6.visibility = View.VISIBLE
+            esValido = false
+        } else {
+            binding.error6.visibility = View.GONE
+        }
+        // CAMBIADO A LA PANTALLA 2
+//        // PROTECCIÓN DIFERENCIAL
+//        if (proteccionDiferencialStr.isEmpty()) {
+//            binding.error7.text = "Introduce la protección diferencial"
+//            binding.error7.visibility = View.VISIBLE
+//            esValido = false
+//        } else {
+//            binding.error7.visibility = View.GONE
+//        }
     }
 
     private fun mostrarSnackbar(mensaje: String) {

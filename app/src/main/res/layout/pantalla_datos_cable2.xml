@@ -32,6 +32,47 @@
 
             <!-- Datos -->
             <TextView
+                android:id="@+id/textViewLongitud"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Longitud:"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editTextLongitud"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/recuadro_texto"
+                android:ems="10"
+                android:fontFamily="sans-serif-medium"
+                android:hint="Longitud"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textSize="24sp" />
+
+            <!-- Error 4 -->
+            <TextView
+                android:id="@+id/error4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/textoErrores"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:text=""
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/editTextLongitud"
+                app:layout_constraintStart_toStartOf="@id/editTextLongitud"
+                app:layout_constraintEnd_toEndOf="@id/editTextLongitud"/>
+
+            <TextView
                 android:id="@+id/textViewCaidaTensionMax"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,14 +84,23 @@
                 android:textSize="24sp" />
 
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/spinner2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="sans-serif-medium"
-                android:background="@android:drawable/btn_dropdown"
-                android:entries="@array/opciones_caida_tension" />
+                android:background="@android:drawable/btn_dropdown" />
+
+            <TextView
+                android:id="@+id/textViewProteccionSelec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Protección seleccionada (A):"
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/editTextProteccionSelec"
@@ -64,6 +114,33 @@
                 android:hint="Protección seleccionada (A)"
                 android:inputType="text"
                 android:padding="5dp"
+                android:textSize="24sp" />
+
+            <!-- Error 5 -->
+            <TextView
+                android:id="@+id/error5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/textoErrores"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:text=""
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/editTextProteccionSelec"
+                app:layout_constraintStart_toStartOf="@id/editTextProteccionSelec"
+                app:layout_constraintEnd_toEndOf="@id/editTextProteccionSelec"/>
+
+            <TextView
+                android:id="@+id/textViewProteccionTermica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Protección térmica:"
                 android:textSize="24sp" />
 
             <EditText
@@ -80,18 +157,63 @@
                 android:padding="5dp"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/editTextProteccionDiferencial"
+            <!-- Error 6 -->
+            <TextView
+                android:id="@+id/error6"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginHorizontal="20dp"
-                android:background="@drawable/recuadro_texto"
-                android:ems="10"
+                android:textColor="@color/textoErrores"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif-medium"
-                android:hint="Protección diferencial"
-                android:inputType="text"
-                android:padding="5dp"
-                android:textSize="24sp" />
+                android:text=""
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/editTextProteccionTermica"
+                app:layout_constraintStart_toStartOf="@id/editTextProteccionTermica"
+                app:layout_constraintEnd_toEndOf="@id/editTextProteccionTermica"/>
+
+            <!-- CAMBIADO A LA PANTALLA 3 -->
+<!--            <TextView-->
+<!--                android:id="@+id/textViewProteccionDiferencial"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:layout_marginHorizontal="20dp"-->
+<!--                android:fontFamily="sans-serif-medium"-->
+<!--                android:text="Protección diferencial:"-->
+<!--                android:textSize="24sp" />-->
+<!--            -->
+<!--            <EditText-->
+<!--                android:id="@+id/editTextProteccionDiferencial"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginHorizontal="20dp"-->
+<!--                android:background="@drawable/recuadro_texto"-->
+<!--                android:ems="10"-->
+<!--                android:fontFamily="sans-serif-medium"-->
+<!--                android:hint="Protección diferencial"-->
+<!--                android:inputType="text"-->
+<!--                android:padding="5dp"-->
+<!--                android:textSize="24sp" />-->
+
+<!--            &lt;!&ndash; Error 7 &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:id="@+id/error7"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:layout_marginHorizontal="20dp"-->
+<!--                android:textColor="@color/textoErrores"-->
+<!--                android:textSize="14sp"-->
+<!--                android:fontFamily="sans-serif-medium"-->
+<!--                android:text=""-->
+<!--                android:visibility="gone"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/editTextProteccionDiferencial"-->
+<!--                app:layout_constraintStart_toStartOf="@id/editTextProteccionDiferencial"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/editTextProteccionDiferencial"/>-->
 
             <!-- Botones -->
             <LinearLayout
