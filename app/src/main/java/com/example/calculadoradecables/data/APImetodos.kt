@@ -1,6 +1,8 @@
 package com.example.calculadoradecables.data
 
 import com.example.calculadoradecables.modelosDataClass.Cable
+import com.example.calculadoradecables.modelosDataClass.NuevoCable
+import com.example.calculadoradecables.modelosDataClass.Termicos
 import com.example.calculadoradecables.modelosDataClass.Usuario
 import com.example.calculadoradecables.modelosDataClass.UsuarioRespuesta
 import okhttp3.ResponseBody
@@ -22,8 +24,7 @@ interface APImetodos {
     @POST("API_CalculadoraCables.php")
     fun crearcable(
         @Query("metodoAPI") metodo: String,
-        @Query("CORREO") correo: String,
-        @Body Cable: Cable
+        @Body NuevoCable: NuevoCable
     ): Call<ResponseBody>
 
     @POST("API_CalculadoraCables.php")
@@ -37,6 +38,13 @@ interface APImetodos {
         @Query("metodoAPI") metodo: String,
         @Query("CORREO") usuario: String
         ): Call<MutableList<Cable>>
+
+    @GET("API_CalculadoraCables.php")
+    fun termicos(
+        @Query("metodoAPI") metodo: String,
+        @Query("proteccion") proteccionseleccionada: Int,
+        @Query("tension") tension: String
+    ): Call<Termicos>
 
     @GET("API_CalculadoraCables.php")
     fun caidatensionmax(
@@ -59,16 +67,12 @@ interface APImetodos {
     ): Call<MutableList<String>>
 
     @GET("API_CalculadoraCables.php")
-    fun proteccioncable(
+    fun tipoconductoraislamiento(
         @Query("metodoAPI") metodo: String,
-        @Query("proteccionseleccionada") proteccionseleccionada: String,
-        @Query("tension") tension: String
-        ): Call<ResponseBody>
+    ): Call<MutableList<String>>
 
     @GET("API_CalculadoraCables.php")
-    fun seccionconductor(
+    fun tipoconductormaterial(
         @Query("metodoAPI") metodo: String,
-        @Query("proteccionseleccionada") proteccionseleccionada: String,
-        @Query("tension") tension: String
-        ): Call<ResponseBody>
+    ): Call<MutableList<String>>
 }

@@ -114,46 +114,6 @@
                 app:layout_constraintStart_toStartOf="@id/editTextPotencia"
                 app:layout_constraintEnd_toEndOf="@id/editTextPotencia"/>
 
-            <TextView
-                android:id="@+id/textViewTension"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginHorizontal="20dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Tensión:"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/editTextTension"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:background="@drawable/recuadro_texto"
-                android:ems="10"
-                android:fontFamily="sans-serif-medium"
-                android:hint="Tensión"
-                android:inputType="text"
-                android:padding="5dp"
-                android:textSize="24sp" />
-
-            <!-- Error 3 -->
-            <TextView
-                android:id="@+id/error3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:textColor="@color/textoErrores"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:text=""
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/editTextTension"
-                app:layout_constraintStart_toStartOf="@id/editTextTension"
-                app:layout_constraintEnd_toEndOf="@id/editTextTension"/>
 
             <TextView
                 android:id="@+id/textViewTipoTension"
@@ -165,20 +125,6 @@
                 android:text="Tipo de tensión:"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/editTextTipoTension"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:background="@drawable/recuadro_texto"
-                android:ems="10"
-                android:fontFamily="sans-serif-medium"
-                android:hint="Tipo de tensión"
-                android:inputType="text"
-                android:padding="5dp"
-                android:textSize="24sp" />
-
             <Spinner
                 android:id="@+id/spinner1"
                 android:layout_width="match_parent"
@@ -188,46 +134,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:background="@android:drawable/btn_dropdown" />
 
-            <!-- CAMBIADO A LA PANTALLA 2 -->
-<!--            <TextView-->
-<!--                android:id="@+id/textViewLongitud"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="5dp"-->
-<!--                android:layout_marginHorizontal="20dp"-->
-<!--                android:fontFamily="sans-serif-medium"-->
-<!--                android:text="Longitud:"-->
-<!--                android:textSize="24sp" />-->
 
-<!--            <EditText-->
-<!--                android:id="@+id/editTextLongitud"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginHorizontal="20dp"-->
-<!--                android:background="@drawable/recuadro_texto"-->
-<!--                android:ems="10"-->
-<!--                android:fontFamily="sans-serif-medium"-->
-<!--                android:hint="Longitud"-->
-<!--                android:inputType="text"-->
-<!--                android:padding="5dp"-->
-<!--                android:textSize="24sp" />-->
-
-<!--            &lt;!&ndash; Error 4 &ndash;&gt;-->
-<!--            <TextView-->
-<!--                android:id="@+id/error4"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="4dp"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                android:layout_marginHorizontal="20dp"-->
-<!--                android:textColor="@color/textoErrores"-->
-<!--                android:textSize="14sp"-->
-<!--                android:fontFamily="sans-serif-medium"-->
-<!--                android:text=""-->
-<!--                android:visibility="gone"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/editTextLongitud"-->
-<!--                app:layout_constraintStart_toStartOf="@id/editTextLongitud"-->
-<!--                app:layout_constraintEnd_toEndOf="@id/editTextLongitud"/>-->
 
             <!--Botones -->
             <LinearLayout

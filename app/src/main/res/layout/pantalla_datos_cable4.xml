@@ -38,7 +38,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Tipo del conductor 1:"
+                android:text="Material del cable:"
                 android:textSize="24sp" />
 
             <Spinner
@@ -57,7 +57,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Tipo del conductor 2:"
+                android:text="Aislamiento del cable:"
                 android:textSize="24sp" />
 
             <Spinner
@@ -95,7 +95,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Factor de corrección del lugar:"
+                android:text="Factor de corrección:"
                 android:textSize="22sp" />
 
             <EditText
@@ -107,7 +107,7 @@
                 android:background="@drawable/recuadro_texto"
                 android:ems="10"
                 android:fontFamily="sans-serif-medium"
-                android:hint="Factor de corrección del lugar"
+                android:hint="Factor de corrección: "
                 android:inputType="text"
                 android:padding="5dp"
                 android:textSize="22sp" />
@@ -129,45 +129,6 @@
                 app:layout_constraintStart_toStartOf="@id/editTextFactorCorreccion"
                 app:layout_constraintEnd_toEndOf="@id/editTextFactorCorreccion"/>
 
-            <TextView
-                android:id="@+id/textViewFactorCorreccion2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginHorizontal="20dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Factor de corrección del tipo:"
-                android:textSize="22sp" />
-
-            <EditText
-                android:id="@+id/editTextFactorCorreccion2"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginHorizontal="20dp"
-                android:background="@drawable/recuadro_texto"
-                android:ems="10"
-                android:fontFamily="sans-serif-medium"
-                android:hint="Factor de corrección del tipo"
-                android:inputType="text"
-                android:padding="5dp"
-                android:textSize="22sp" />
-
-            <!-- Error 10-->
-            <TextView
-                android:id="@+id/error10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:textColor="@color/textoErrores"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:text=""
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/editTextFactorCorreccion2"
-                app:layout_constraintStart_toStartOf="@id/editTextFactorCorreccion2"
-                app:layout_constraintEnd_toEndOf="@id/editTextFactorCorreccion2"/>
 
             <!-- Botones -->
             <LinearLayout

@@ -24,8 +24,6 @@ class Pantalla3 : Fragment() {
     private var _binding: PantallaDatosCable3Binding? = null
     private val binding get() = _binding!!
 
-    var esValido = false
-
     private val viewModel: CableViewModel by activityViewModels()
 
     private var listatipodiferencial: MutableList<String> = mutableListOf()
@@ -39,15 +37,55 @@ class Pantalla3 : Fragment() {
         _binding = PantallaDatosCable3Binding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        cargardatos()
+
+        binding.botonSiguiente.setOnClickListener {
+            if (!viewModel.vercable) {
+                viewModel.meterdatos(
+                    "tipodiferencial",
+                    binding.spinner3.selectedItem.toString()
+                )
+                viewModel.meterdatos(
+                    "sensibilidadiferencial",
+                    binding.spinner4.selectedItem.toString()
+                )
+
+                Log.d(
+                    "nose",
+                    "Datos del cable del view model Pantalla3 Siguiente: ${viewModel.depuraciondatos()}"
+                )
+            }
+            findNavController().navigate(R.id.pantalla4)
+
+        }
+
+        binding.botonAtras.setOnClickListener {
+            if (!viewModel.vercable) {
+
+                viewModel.meterdatos("tipodiferencial", binding.spinner3.selectedItem.toString())
+                viewModel.meterdatos(
+                    "sensibilidadiferencial",
+                    binding.spinner4.selectedItem.toString()
+                )
+                Log.d(
+                    "nose",
+                    "Datos del cable del view model Pantalla3 Siguiente: ${viewModel.depuraciondatos()}"
+                )
+            }
+            findNavController().navigate(R.id.pantalla2)
+        }
+    }
+    private fun cargardatos() {
         RetrofitClient.instance.tipodiferencial("tipodiferencial")
             .enqueue(object : Callback<MutableList<String>> {
                 override fun onResponse(
                     call: Call<MutableList<String>>,
                     response: Response<MutableList<String>>
-                ){
+                ) {
                     if (response.isSuccessful) {
-                        Log.d("nose",response.body().toString())
+                        Log.d("nose", response.body().toString())
                         listatipodiferencial = response.body()!!
                         val adapter = ArrayAdapter(
                             requireContext(),
@@ -58,13 +96,14 @@ class Pantalla3 : Fragment() {
                         binding.spinner3.adapter = adapter
 
                         if (viewModel.datoscable.value?.get("tipodiferencial") != null) {
-                            val posicion = listatipodiferencial.indexOf(viewModel.datoscable.value?.get("tipodiferencial"))
-                            Log.d("nose","posicion array $posicion")
-                            if (posicion >= 0){
-                                binding.editTextProteccionDiferencial.setText(viewModel.datoscable.value?.get("protecciondiferencial"))
+                            val posicion =
+                                listatipodiferencial.indexOf(viewModel.datoscable.value?.get("tipodiferencial"))
+                            Log.d("nose", "posicion array $posicion")
+                            if (posicion >= 0) {
                                 binding.spinner3.setSelection(posicion)
                             }
                         }
+                        intentarPonerdatoscable()
                     }
                 }
 
@@ -79,12 +118,12 @@ class Pantalla3 : Fragment() {
                 override fun onResponse(
                     call: Call<MutableList<String>>,
                     response: Response<MutableList<String>>
-                ){
+                ) {
                     Log.d("nose", "Código HTTP: ${response.code()}")
                     Log.d("nose", "Body: ${response.body()}")
                     Log.d("nose", "ErrorBody: ${response.errorBody()?.string()}")
                     if (response.isSuccessful) {
-                        Log.d("nose",response.body().toString())
+                        Log.d("nose", response.body().toString())
                         listasensibilidaddiferencial = response.body()!!
                         val adapter = ArrayAdapter(
                             requireContext(),
@@ -94,14 +133,20 @@ class Pantalla3 : Fragment() {
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         binding.spinner4.adapter = adapter
 
+                        if (!viewModel.vercable) {
+                            binding.editTextProteccionDiferencial.setText(viewModel.termicos.proteccionDiferencial)
+                            binding.editTextSeccionConductor.setText(viewModel.termicos.seccionConductor)
+                        }
                         if (viewModel.datoscable.value?.get("sensibilidadiferencial") != null) {
-                            val posicion = listasensibilidaddiferencial.indexOf(viewModel.datoscable.value?.get("sensibilidadiferencial"))
-                            Log.d("nose","posicion array $posicion")
-                            if (posicion >= 0){
+                            val posicion = listasensibilidaddiferencial.indexOf(
+                                viewModel.datoscable.value?.get("sensibilidadiferencial")
+                            )
+                            Log.d("nose", "posicion array $posicion")
+                            if (posicion >= 0) {
                                 binding.spinner4.setSelection(posicion)
-                                binding.editTextSeccionConductor.setText(viewModel.datoscable.value?.get("seccionconductor"))
                             }
                         }
+                        intentarPonerdatoscable()
                     }
                 }
 
@@ -110,65 +155,6 @@ class Pantalla3 : Fragment() {
                     mostrarSnackbar("Problemas de conexión")
                 }
             })
-
-        binding.botonSiguiente.setOnClickListener {
-            validarPantalla3()
-            if (esValido) {
-                viewModel.meterdatos("protecciondiferencial",binding.editTextProteccionDiferencial.text.toString())
-                viewModel.meterdatos("tipodiferencial", binding.spinner3.selectedItem.toString())
-                viewModel.meterdatos("sensibilidadiferencial", binding.spinner4.selectedItem.toString())
-                viewModel.meterdatos("seccionconductor", binding.editTextSeccionConductor.text.toString())
-
-                Log.d(
-                    "nose",
-                    "Datos del cable del view model Pantalla3 Siguiente: ${viewModel.depuraciondatos()}"
-                )
-
-                findNavController().navigate(R.id.pantalla4)
-            }
-        }
-
-        binding.botonAtras.setOnClickListener {
-            viewModel.meterdatos("protecciondiferencial",binding.editTextProteccionDiferencial.text.toString())
-            viewModel.meterdatos("tipodiferencial",binding.spinner3.selectedItem.toString())
-            viewModel.meterdatos("sensibilidadiferencial",binding.spinner4.selectedItem.toString())
-            viewModel.meterdatos("seccionconductor",binding.editTextSeccionConductor.text.toString())
-            Log.d("nose","Datos del cable del view model Pantalla3 Siguiente: ${viewModel.depuraciondatos()}")
-            findNavController().navigate(R.id.pantalla2)
-        }
-    }
-
-    // Comprobación datos
-    fun validarPantalla3() {
-        val proteccionDiferencialStr = binding.editTextProteccionDiferencial.text.toString().trim()
-        val seccionConductorStr = binding.editTextSeccionConductor.text.toString().trim()
-
-        esValido = true
-
-        // PROTECCIÓN DIFERENCIAL
-        if (proteccionDiferencialStr.isEmpty()) {
-            binding.error7.text = "Introduce la protección diferencial"
-            binding.error7.visibility = View.VISIBLE
-            esValido = false
-        } else {
-            binding.error7.visibility = View.GONE
-        }
-
-        // SECCIÓN CONDUCTOR
-        val seccionConductor = seccionConductorStr.toDoubleOrNull()
-        if (seccionConductorStr.isEmpty()) {
-            binding.error8.text = "Introduce la sección del conductor"
-            binding.error8.visibility = View.VISIBLE
-            esValido = false
-        } else {
-            if (seccionConductor == null || seccionConductor <= 0) {
-                binding.error8.text = "Valor inválido"
-                binding.error8.visibility = View.VISIBLE
-                esValido = false
-            } else {
-                binding.error8.visibility = View.GONE
-            }
-        }
     }
 
     private fun mostrarSnackbar(mensaje: String) {
@@ -185,6 +171,52 @@ class Pantalla3 : Fragment() {
         )
         snackbar.show()
     }
+
+    fun modificacionedittext() {
+
+        binding.editTextSeccionConductor.isFocusable = false
+        binding.editTextSeccionConductor.isClickable = false
+
+
+        binding.editTextProteccionDiferencial.isFocusable = false
+        binding.editTextProteccionDiferencial.isClickable = false
+
+        binding.spinner4.isClickable = false
+        binding.spinner4.isEnabled = false
+
+        binding.spinner3.isClickable = false
+        binding.spinner3.isEnabled = false
+    }
+
+    fun ponerdatoscable() {
+        binding.editTextSeccionConductor.setText(viewModel.cable.seccionconductor)
+        binding.editTextProteccionDiferencial.setText(viewModel.cable.protecciondiferencial)
+
+        val valorSpinner = viewModel.cable.tipodiferencial
+
+        val posicion = (binding.spinner3.adapter as ArrayAdapter<String>)
+            .getPosition(valorSpinner)
+
+        binding.spinner3.setSelection(posicion)
+
+        val valorSpinner2 = viewModel.cable.sensibilidadiferencial
+
+        val posicion2 = (binding.spinner4.adapter as ArrayAdapter<String>)
+            .getPosition(valorSpinner2)
+
+        binding.spinner4.setSelection(posicion2)
+    }
+
+    private fun intentarPonerdatoscable() {
+        if (listatipodiferencial.isNotEmpty() &&
+            listasensibilidaddiferencial.isNotEmpty() &&
+            viewModel.vercable
+        ) {
+            modificacionedittext()
+            ponerdatoscable()
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
 

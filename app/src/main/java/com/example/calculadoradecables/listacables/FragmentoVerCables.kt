@@ -12,14 +12,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.calculadoradecables.MainActivity
 import com.example.calculadoradecables.R
 import com.example.calculadoradecables.RetrofitClient
 import com.example.calculadoradecables.databinding.PantallaListadoCablesBinding
 import com.example.calculadoradecables.modelosDataClass.Cable
+import com.example.calculadoradecables.modelosDataClass.Termicos
 import com.example.calculadoradecables.viewmodel.CableViewModel
 import com.google.android.material.snackbar.Snackbar
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,6 +41,7 @@ class FragmentoVerCables : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("nose", "Usuario que se manda: ${viewModel.datoscable.value?.get("usuario")}")
         // Configurar el RecyclerView
         val recyclerReservas = view.findViewById<RecyclerView>(R.id.recyclerListadoCables)
         recyclerReservas.layoutManager = LinearLayoutManager(requireContext())
@@ -51,11 +51,24 @@ class FragmentoVerCables : Fragment() {
                     call: Call<MutableList<Cable>>,
                     response: Response<MutableList<Cable>>
                 ){
+                    // Log del código HTTP
+                    Log.d("nose", "Código HTTP: ${response.code()}")
+
+                    // Leer el body real
+                    val responseBody = response.body()?.toString()
+                    Log.d("nose", "Body de respuesta: $responseBody")
+                    Log.d("nose", "ErrorBody: ${response.errorBody()?.string()}")  // <-- aquí estará el error SQL
+
                     if (response.isSuccessful) {
-                        Log.d("nose",response.body().toString())
-                            cablesMutableList = response.body()!!
-                            val adapter = cablesAdapter(cablesMutableList)
-                            recyclerReservas.adapter = adapter
+                        Log.d("nose","Hola caracola"+response.body().toString())
+                        cablesMutableList = response.body()!!
+                        val adapter = cablesAdapter(cablesMutableList)
+                        adapter.onItemClick = { cable ->
+                            viewModel.vercable = true
+                            viewModel.cable = cable
+                            findNavController().navigate(R.id.pantalla1)
+                        }
+                        recyclerReservas.adapter = adapter
                     }
                 }
 
@@ -83,6 +96,8 @@ class FragmentoVerCables : Fragment() {
         )
         snackbar.show()
     }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
 

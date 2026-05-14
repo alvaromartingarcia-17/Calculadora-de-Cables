@@ -1,9 +1,12 @@
 package com.example.calculadoradecables.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.calculadoradecables.modelosDataClass.Cable
+import com.example.calculadoradecables.modelosDataClass.NuevoCable
+import com.example.calculadoradecables.modelosDataClass.Termicos
 
 class CableViewModel : ViewModel() {
 
@@ -11,33 +14,44 @@ class CableViewModel : ViewModel() {
     val datoscable: LiveData<MutableMap<String, String>> = _datoscable
 
     var vercable: Boolean = false
+
+    lateinit var cable : Cable
+    var termicos: Termicos = Termicos(0, 0, "", "", "", "")
     fun meterdatos(key: String, value: String) {
         val current = _datoscable.value ?: mutableMapOf()
         current[key] = value
         _datoscable.value = current
     }
 
-    fun cable(): Cable? {
+    fun CrearCable(): NuevoCable? {
         val data = _datoscable.value ?: return null
+        Log.d("nose", "nombre: ${data["nombre"]}")
+        Log.d("nose", "potencia: ${data["potencia"]}")
+        Log.d("nose", "tension: ${data["tension"]}")
+        Log.d("nose", "longitud: ${data["longitud"]}")
+        Log.d("nose", "idtablatermicos: ${data["idtablatermicos"]}")
+        Log.d("nose", "caidatensionmax: ${data["caidatensionmax"]}")
+        Log.d("nose", "tipodiferencial: ${data["tipodiferencial"]}")
+        Log.d("nose", "sensibilidadiferencial: ${data["sensibilidadiferencial"]}")
+        Log.d("nose", "tipoconductormaterial: ${data["tipoconductormaterial"]}")
+        Log.d("nose", "tipoconductoraislamiento: ${data["tipoconductoraislamiento"]}")
+        Log.d("nose", "localizacioncanalizacion: ${data["localizacioncanalizacion"]}")
+        Log.d("nose", "factorcorreccionlugar: ${data["factorcorreccionlugar"]}")
+        Log.d("nose", "factorcorrecciontipo: ${data["factorcorrecciontipo"]}")
         return try {
-            Cable(
+            NuevoCable(
                 nombre = data["nombre"] ?: return null,
                 potencia = data["potencia"] ?: return null,
-                tension = data["tension"] ?: return null,
                 longitud = data["longitud"] ?: return null,
+                idtablatermicos = data["idtablatermicos"] ?: return null,
                 caidatensionmax = data["caidatensionmax"] ?: return null,
-                proteccionseleccionada = data["proteccionseleccionada"] ?: return null,
-                protecciontermica = data["protecciontermica"] ?: return null,
-                protecciondiferencial = data["protecciondiferencial"] ?: return null,
                 tipodiferencial = data["tipodiferencial"] ?: return null,
                 sensibilidadiferencial = data["sensibilidadiferencial"] ?: return null,
-                seccionconductor = data["seccionconductor"] ?: return null,
-                tipoconductor = data["tipoconductor"] ?: return null,
-                tipoconductor2 = data["tipoconductor2"] ?: return null,
+                tipoconductormaterial = data["tipoconductormaterial"] ?: return null,
+                tipoconductoraislamiento = data["tipoconductoraislamiento"] ?: return null,
                 localizacioncanalizacion = data["localizacioncanalizacion"] ?: return null,
                 factorcorreccionlugar = data["factorcorreccionlugar"] ?: return null,
-                factorcorrecciontipo = data["factorcorrecciontipo"] ?: return null,
-                usuario = data["usuario"] ?: return null
+                usuario = data["usuario"] ?: ""
             )
         } catch (e: Exception) { null }
     }
@@ -55,6 +69,10 @@ class CableViewModel : ViewModel() {
     }
 
     fun borrardatos() {
+        val correo = _datoscable.value?.get("usuario")
         _datoscable.value = mutableMapOf()
+        if (correo != null) {
+            _datoscable.value?.put("usuario", correo)
+        }
     }
 }
