@@ -110,11 +110,16 @@
                 android:id="@+id/textViewOlvidadaContrasenia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20dp"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:fontFamily="sans-serif-medium"
-                android:text="Contraseña olvidada"
+                android:text="Olvide mi contraseña"
                 android:textAlignment="center"
+                android:textColor="#4F63E2"
                 android:textSize="18sp" />
 
             <LinearLayout

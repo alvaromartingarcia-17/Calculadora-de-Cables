@@ -20,7 +20,24 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
+     <activity
+         android:name =".CambiarContrasena"
+         android:exported ="true">
 
+         <intent-filter  android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW"/>
+             <category android:name="android.intent.category.DEFAULT"   />
+             <category android:name="android.intent.category.BROWSABLE" />
+
+             <data
+                 android:scheme="https"
+                 android:host="app.idtingenieria.es"
+                 android:path ="/reset_password.php"
+                 />
+         </intent-filter>
+     </activity>
+        <activity android:name=".IntroducirCorreo"
+            android:exported="false"/>
     </application>
 
 </manifest>

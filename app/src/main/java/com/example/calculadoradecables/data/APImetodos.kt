@@ -5,6 +5,7 @@ import com.example.calculadoradecables.modelosDataClass.NuevoCable
 import com.example.calculadoradecables.modelosDataClass.Termicos
 import com.example.calculadoradecables.modelosDataClass.Usuario
 import com.example.calculadoradecables.modelosDataClass.UsuarioRespuesta
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -75,4 +76,17 @@ interface APImetodos {
     fun tipoconductormaterial(
         @Query("metodoAPI") metodo: String,
     ): Call<MutableList<String>>
+
+
+    @POST("API_CalculadoraCables.php")
+    fun olvidarContrasena(
+        @Query("metodoAPI") metodo: String,
+        @Body body: RequestBody): Call<ResponseBody>
+
+
+    @POST("API_CalculadoraCables.php")
+    fun resetearContrasena(
+        @Query("metodoAPI") metodo: String,
+        @Body body: RequestBody ): Call<ResponseBody>
+
 }

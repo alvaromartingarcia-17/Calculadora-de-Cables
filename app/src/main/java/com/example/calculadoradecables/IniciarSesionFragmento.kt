@@ -1,5 +1,6 @@
 package com.example.calculadoradecables
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -42,6 +43,9 @@ class IniciarSesionFragmento : Fragment() {
         }
         binding.botonCrearUsuario.setOnClickListener {
             comprobacionInciarSesion(true)
+        }
+        binding.textViewOlvidadaContrasenia.setOnClickListener {
+           startActivity(Intent(requireContext(), IntroducirCorreo::class.java))
         }
     }
 
