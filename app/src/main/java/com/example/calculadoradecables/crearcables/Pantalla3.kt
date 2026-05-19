@@ -134,8 +134,8 @@ class Pantalla3 : Fragment() {
                         binding.spinner4.adapter = adapter
 
                         if (!viewModel.vercable) {
-                            binding.editTextProteccionDiferencial.setText(viewModel.termicos.proteccionDiferencial)
-                            binding.editTextSeccionConductor.setText(viewModel.termicos.seccionConductor)
+                            binding.textViewProteccionDiferencialMensaje.setText(viewModel.termicos.proteccionDiferencial)
+                            binding.textViewSeccionConductorMensaje.setText(viewModel.termicos.seccionConductor)
                         }
                         if (viewModel.datoscable.value?.get("sensibilidadiferencial") != null) {
                             val posicion = listasensibilidaddiferencial.indexOf(
@@ -174,12 +174,12 @@ class Pantalla3 : Fragment() {
 
     fun modificacionedittext() {
 
-        binding.editTextSeccionConductor.isFocusable = false
-        binding.editTextSeccionConductor.isClickable = false
+        binding.textViewSeccionConductorMensaje.isFocusable = false
+        binding.textViewSeccionConductorMensaje.isClickable = false
 
 
-        binding.editTextProteccionDiferencial.isFocusable = false
-        binding.editTextProteccionDiferencial.isClickable = false
+        binding.textViewProteccionDiferencialMensaje.isFocusable = false
+        binding.textViewProteccionDiferencialMensaje.isClickable = false
 
         binding.spinner4.isClickable = false
         binding.spinner4.isEnabled = false
@@ -189,8 +189,8 @@ class Pantalla3 : Fragment() {
     }
 
     fun ponerdatoscable() {
-        binding.editTextSeccionConductor.setText(viewModel.cable.seccionconductor)
-        binding.editTextProteccionDiferencial.setText(viewModel.cable.protecciondiferencial)
+        binding.textViewSeccionConductorMensaje.setText(viewModel.cable.seccionconductor)
+        binding.textViewProteccionDiferencialMensaje.setText(viewModel.cable.protecciondiferencial)
 
         val valorSpinner = viewModel.cable.tipodiferencial
 

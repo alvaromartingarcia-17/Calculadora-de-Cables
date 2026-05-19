@@ -40,8 +40,8 @@ class Pantalla2 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (!viewModel.vercable) {
-            binding.editTextProteccionTermica.setText(viewModel.termicos.proteccionTermica)
-            binding.editTextProteccionSelec.setText(viewModel.termicos.proteccionSeleccionada.toString() + " A")
+            binding.textViewProteccionTermicaMensaje.setText(viewModel.termicos.proteccionTermica)
+            binding.textViewProteccionSelecMensaje.setText(viewModel.termicos.proteccionSeleccionada.toString() + " A")
         }
         binding.botonSiguiente.isEnabled = false
 
@@ -153,12 +153,12 @@ class Pantalla2 : Fragment() {
         binding.editTextLongitud.isClickable = false
 
 
-        binding.editTextProteccionSelec.isFocusable = false
-        binding.editTextProteccionSelec.isClickable = false
+        binding.textViewProteccionSelecMensaje.isFocusable = false
+        binding.textViewProteccionSelecMensaje.isClickable = false
 
 
-        binding.editTextProteccionTermica.isFocusable = false
-        binding.editTextProteccionTermica.isClickable = false
+        binding.textViewProteccionTermicaMensaje.isFocusable = false
+        binding.textViewProteccionTermicaMensaje.isClickable = false
 
 
         binding.spinner2.isClickable = false
@@ -167,8 +167,8 @@ class Pantalla2 : Fragment() {
 
     fun ponerdatoscable() {
         binding.editTextLongitud.setText(viewModel.cable.longitud)
-        binding.editTextProteccionSelec.setText(viewModel.cable.proteccionseleccionada + " A")
-        binding.editTextProteccionTermica.setText(viewModel.cable.protecciontermica)
+        binding.textViewProteccionSelecMensaje.setText(viewModel.cable.proteccionseleccionada + " A")
+        binding.textViewProteccionTermicaMensaje.setText(viewModel.cable.protecciontermica)
 
         val valorSpinner = viewModel.cable.caidatensionmax.toDouble()
 

@@ -1,49 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/textViewTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/fondoTitulo"
+            android:fontFamily="sans-serif-medium"
+            android:padding="5dp"
+            android:text="Nueva Contraseña"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tvPassword"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:text="Nueva contraseña"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginHorizontal="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Nueva contraseña:"
+            android:textSize="24sp" />
+
 
         <EditText
             android:id="@+id/etPassword"
-            android:layout_width="354dp"
-            android:layout_height="84dp"
-            android:layout_marginBottom="16dp"
-            android:hint="Nueva contraseña"
-            android:inputType="textPassword" />
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/recuadro_texto"
+            android:ems="10"
+            android:fontFamily="sans-serif-medium"
+            android:hint="Escriba su nueva contraseña"
+            android:inputType="textPassword"
+            android:padding="5dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tvPasswordConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginHorizontal="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Confirma contraseña:"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/etPasswordConfirm"
-            android:layout_width="359dp"
-            android:layout_height="80dp"
-            android:layout_marginBottom="32dp"
-            android:hint="Confirmar contraseña"
-            android:inputType="textPassword" />
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/recuadro_texto"
+            android:ems="10"
+            android:fontFamily="sans-serif-medium"
+            android:hint="Confirme su nueva contraseña"
+            android:inputType="textPassword"
+            android:padding="5dp"
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/btnReset"
-            android:layout_width="348dp"
-            android:layout_height="63dp"
-            android:text="Restablecer contraseña" />
+            android:layout_width="350dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/fondoBotones"
+            android:fontFamily="sans-serif-medium"
+            android:text="Restablecer contraseña"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

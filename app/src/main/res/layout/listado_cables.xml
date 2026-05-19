@@ -42,26 +42,26 @@
                 app:layout_constraintTop_toBottomOf="@id/textViewNombre" />
 
             <TextView
-                android:id="@+id/textViewTension"
+                android:id="@+id/textViewProteccionSelec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Tension"
+                android:text="Protección seleccionada (A)"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewNombre" />
 
-            <TextView
-                android:id="@+id/textViewLongitud"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Longitud"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewNombre" />
+<!--            <TextView-->
+<!--                android:id="@+id/textViewTension"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:fontFamily="sans-serif-medium"-->
+<!--                android:text="Tensión"-->
+<!--                android:textSize="20sp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/textViewNombre" />-->
 
         </LinearLayout>
     </LinearLayout>

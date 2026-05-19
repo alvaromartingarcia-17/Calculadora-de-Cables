@@ -102,8 +102,10 @@
                 android:text="Protección seleccionada (A):"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/editTextProteccionSelec"
+            <!-- Cuadro automatico -->
+            <!-- En duda, por defecto puesto como automatico -->
+            <TextView
+                android:id="@+id/textViewProteccionSelecMensaje"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
@@ -112,7 +114,6 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-medium"
                 android:hint="Protección seleccionada (A)"
-                android:inputType="text"
                 android:padding="5dp"
                 android:textSize="24sp" />
 
@@ -129,10 +130,11 @@
                 android:fontFamily="sans-serif-medium"
                 android:text=""
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/editTextProteccionSelec"
-                app:layout_constraintStart_toStartOf="@id/editTextProteccionSelec"
-                app:layout_constraintEnd_toEndOf="@id/editTextProteccionSelec"/>
+                app:layout_constraintTop_toBottomOf="@id/textViewProteccionSelecMensaje"
+                app:layout_constraintStart_toStartOf="@id/textViewProteccionSelecMensaje"
+                app:layout_constraintEnd_toEndOf="@id/textViewProteccionSelecMensaje"/>
 
+            <!-- Cuadro automatico -->
             <TextView
                 android:id="@+id/textViewProteccionTermica"
                 android:layout_width="match_parent"
@@ -143,8 +145,8 @@
                 android:text="Protección térmica:"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/editTextProteccionTermica"
+            <TextView
+                android:id="@+id/textViewProteccionTermicaMensaje"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
@@ -153,7 +155,6 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-medium"
                 android:hint="Protección térmica"
-                android:inputType="text"
                 android:padding="5dp"
                 android:textSize="24sp" />
 
@@ -170,9 +171,9 @@
                 android:fontFamily="sans-serif-medium"
                 android:text=""
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/editTextProteccionTermica"
-                app:layout_constraintStart_toStartOf="@id/editTextProteccionTermica"
-                app:layout_constraintEnd_toEndOf="@id/editTextProteccionTermica"/>
+                app:layout_constraintTop_toBottomOf="@id/textViewProteccionTermicaMensaje"
+                app:layout_constraintStart_toStartOf="@id/textViewProteccionTermicaMensaje"
+                app:layout_constraintEnd_toEndOf="@id/textViewProteccionTermicaMensaje"/>
 
             <!-- CAMBIADO A LA PANTALLA 3 -->
             <!--            <TextView-->

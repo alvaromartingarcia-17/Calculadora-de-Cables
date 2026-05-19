@@ -18,6 +18,8 @@ class cablesAdapter(private val listaCables: MutableList<Cable>) :
 
     class cablesAdapter(view: View) : RecyclerView.ViewHolder(view) {
         val nombre: TextView = view.findViewById(R.id.textViewNombre)
+        val potencia:  TextView = view.findViewById(R.id.textViewPotencia)
+        val proteccionSelecc:  TextView = view.findViewById(R.id.textViewProteccionSelec)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): cablesAdapter {
@@ -31,7 +33,10 @@ class cablesAdapter(private val listaCables: MutableList<Cable>) :
         val posicion = holder.bindingAdapterPosition
         val cable = listaCables[posicion]
 
-        holder.nombre.text = cable.nombre
+        holder.nombre.text = "Nombre del circuito: ${cable.nombre}"
+        holder.potencia.text = "Potencia: ${cable.potencia}"
+        holder.proteccionSelecc.text = "Protección seleccionada (A): ${cable.proteccionseleccionada}"
+
 
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(cable)

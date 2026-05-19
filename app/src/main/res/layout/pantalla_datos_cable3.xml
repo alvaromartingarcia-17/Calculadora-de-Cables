@@ -31,6 +31,7 @@
                 android:padding="5dp" />
 
             <!-- Datos -->
+            <!-- Cuadro automatico -->
             <TextView
                 android:id="@+id/textViewProteccionDiferencial"
                 android:layout_width="match_parent"
@@ -41,17 +42,16 @@
                 android:text="Protección diferencial:"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/editTextProteccionDiferencial"
+            <TextView
+                android:id="@+id/textViewProteccionDiferencialMensaje"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginHorizontal="20dp"
                 android:background="@drawable/recuadro_texto"
                 android:ems="10"
                 android:fontFamily="sans-serif-medium"
                 android:hint="Protección diferencial"
-                android:inputType="text"
                 android:padding="5dp"
                 android:textSize="24sp" />
 
@@ -68,9 +68,9 @@
                 android:fontFamily="sans-serif-medium"
                 android:text=""
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/editTextProteccionDiferencial"
-                app:layout_constraintStart_toStartOf="@id/editTextProteccionDiferencial"
-                app:layout_constraintEnd_toEndOf="@id/editTextProteccionDiferencial"/>
+                app:layout_constraintTop_toBottomOf="@id/textViewProteccionDiferencialMensaje"
+                app:layout_constraintStart_toStartOf="@id/textViewProteccionDiferencialMensaje"
+                app:layout_constraintEnd_toEndOf="@id/textViewProteccionDiferencialMensaje"/>
 
             <TextView
                 android:id="@+id/textViewTipoDiferencial"
@@ -110,6 +110,8 @@
                 android:fontFamily="sans-serif-medium"
                 android:background="@android:drawable/btn_dropdown" />
 
+            <!-- Cuadro automatico -->
+            <!-- En duda, por defecto puesto como automatico -->
             <TextView
                 android:id="@+id/textViewSeccionConductor"
                 android:layout_width="match_parent"
@@ -120,8 +122,8 @@
                 android:text="Sección del conductor:"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/editTextSeccionConductor"
+            <TextView
+                android:id="@+id/textViewSeccionConductorMensaje"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="20dp"
@@ -129,7 +131,6 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-medium"
                 android:hint="Sección del conductor"
-                android:inputType="text"
                 android:padding="5dp"
                 android:textSize="24sp" />
 
@@ -146,9 +147,9 @@
                 android:fontFamily="sans-serif-medium"
                 android:text=""
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/editTextSeccionConductor"
-                app:layout_constraintStart_toStartOf="@id/editTextSeccionConductor"
-                app:layout_constraintEnd_toEndOf="@id/editTextSeccionConductor"/>
+                app:layout_constraintTop_toBottomOf="@id/textViewSeccionConductorMensaje"
+                app:layout_constraintStart_toStartOf="@id/textViewSeccionConductorMensaje"
+                app:layout_constraintEnd_toEndOf="@id/textViewSeccionConductorMensaje"/>
 
             <!-- Botones -->
             <LinearLayout
