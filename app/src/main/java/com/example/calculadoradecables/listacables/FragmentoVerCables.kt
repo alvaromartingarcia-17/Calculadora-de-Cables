@@ -16,7 +16,6 @@ import com.example.calculadoradecables.R
 import com.example.calculadoradecables.RetrofitClient
 import com.example.calculadoradecables.databinding.PantallaListadoCablesBinding
 import com.example.calculadoradecables.modelosDataClass.Cable
-import com.example.calculadoradecables.modelosDataClass.Termicos
 import com.example.calculadoradecables.viewmodel.CableViewModel
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call

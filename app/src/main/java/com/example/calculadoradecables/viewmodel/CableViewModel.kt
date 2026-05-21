@@ -16,7 +16,7 @@ class CableViewModel : ViewModel() {
     var vercable: Boolean = false
 
     lateinit var cable : Cable
-    var termicos: Termicos = Termicos(0, 0, "", "", "", "")
+    var termicos: Termicos = Termicos(0, 0, "", 0.0, "", "")
     fun meterdatos(key: String, value: String) {
         val current = _datoscable.value ?: mutableMapOf()
         current[key] = value
@@ -44,6 +44,7 @@ class CableViewModel : ViewModel() {
                 potencia = data["potencia"] ?: return null,
                 longitud = data["longitud"] ?: return null,
                 idtablatermicos = data["idtablatermicos"] ?: return null,
+                seccionconductor = data["seccionconductor"] ?: return null,
                 caidatensionmax = data["caidatensionmax"] ?: return null,
                 tipodiferencial = data["tipodiferencial"] ?: return null,
                 sensibilidadiferencial = data["sensibilidadiferencial"] ?: return null,
@@ -53,7 +54,9 @@ class CableViewModel : ViewModel() {
                 factorcorreccionlugar = data["factorcorreccionlugar"] ?: return null,
                 usuario = data["usuario"] ?: ""
             )
-        } catch (e: Exception) { null }
+        } catch (e: Exception) {
+            Log.d("nose",e.toString())
+            null }
     }
 
     fun depuraciondatos(): String {

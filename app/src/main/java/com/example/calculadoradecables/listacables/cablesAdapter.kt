@@ -4,12 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calculadoradecables.R
 import com.example.calculadoradecables.modelosDataClass.Cable
-import com.example.calculadoradecables.viewmodel.CableViewModel
-import kotlin.getValue
 
 class cablesAdapter(private val listaCables: MutableList<Cable>) :
     RecyclerView.Adapter<cablesAdapter.cablesAdapter>() {

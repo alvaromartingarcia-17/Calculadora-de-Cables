@@ -30,47 +30,25 @@
                 android:textStyle="bold"
                 android:padding="5dp" />
 
-            <!-- Datos -->
-            <!-- Cuadro automatico -->
             <TextView
-                android:id="@+id/textViewProteccionDiferencial"
+                android:id="@+id/textViewCaidaTensionMax"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginHorizontal="20dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Protección diferencial:"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/textViewProteccionDiferencialMensaje"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:background="@drawable/recuadro_texto"
                 android:ems="10"
                 android:fontFamily="sans-serif-medium"
-                android:hint="Protección diferencial"
-                android:padding="5dp"
+                android:text="Caída de tensión máxima:"
                 android:textSize="24sp" />
 
-            <!-- Error 7 -->
-            <TextView
-                android:id="@+id/error7"
+            <Spinner
+                android:id="@+id/spinner2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginHorizontal="20dp"
-                android:textColor="@color/textoErrores"
-                android:textSize="14sp"
                 android:fontFamily="sans-serif-medium"
-                android:text=""
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/textViewProteccionDiferencialMensaje"
-                app:layout_constraintStart_toStartOf="@id/textViewProteccionDiferencialMensaje"
-                app:layout_constraintEnd_toEndOf="@id/textViewProteccionDiferencialMensaje"/>
+                android:background="@android:drawable/btn_dropdown" />
 
             <TextView
                 android:id="@+id/textViewTipoDiferencial"
@@ -109,47 +87,6 @@
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="sans-serif-medium"
                 android:background="@android:drawable/btn_dropdown" />
-
-            <!-- Cuadro automatico -->
-            <!-- En duda, por defecto puesto como automatico -->
-            <TextView
-                android:id="@+id/textViewSeccionConductor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginHorizontal="20dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Sección del conductor:"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/textViewSeccionConductorMensaje"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginHorizontal="20dp"
-                android:background="@drawable/recuadro_texto"
-                android:ems="10"
-                android:fontFamily="sans-serif-medium"
-                android:hint="Sección del conductor"
-                android:padding="5dp"
-                android:textSize="24sp" />
-
-            <!-- Error 8 -->
-            <TextView
-                android:id="@+id/error8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:textColor="@color/textoErrores"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:text=""
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/textViewSeccionConductorMensaje"
-                app:layout_constraintStart_toStartOf="@id/textViewSeccionConductorMensaje"
-                app:layout_constraintEnd_toEndOf="@id/textViewSeccionConductorMensaje"/>
 
             <!-- Botones -->
             <LinearLayout

@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingBottom="24dp">
 
+        <!-- Título -->
         <TextView
             android:id="@+id/textViewTitulo"
             android:layout_width="match_parent"
@@ -26,9 +25,9 @@
             android:textColor="@color/white"
             android:textSize="35sp"
             android:textStyle="bold"
-            android:padding="5dp"/>
+            android:padding="5dp" />
 
-        <!--Logo-->
+        <!-- Logo -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
@@ -38,19 +37,19 @@
             android:layout_marginRight="10dp"
             app:srcCompat="@drawable/logo_idt" />
 
-        <!--Nombre-->
+        <!-- Nombre -->
         <EditText
             android:id="@+id/editTextNombre"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:fontFamily="sans-serif-medium"
-            android:hint="Nombre de usuario"
-            android:textSize="24sp"
-            android:inputType="textPersonName"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:hint="Nombre de usuario"
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/errorNombre"
@@ -62,20 +61,20 @@
             android:fontFamily="sans-serif-medium"
             android:textColor="@color/textoErrores"
             android:textSize="14sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
-        <!--Correo-->
+        <!-- Correo -->
         <EditText
             android:id="@+id/editTextCorreo"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:fontFamily="sans-serif-medium"
-            android:hint="Correo del usuario"
-            android:textSize="24sp"
-            android:inputType="textPersonName"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:hint="Correo del usuario"
+            android:inputType="textEmailAddress"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/errorCorreo"
@@ -87,32 +86,34 @@
             android:fontFamily="sans-serif-medium"
             android:textColor="@color/textoErrores"
             android:textSize="14sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
-        <!--Contraseña-->
+        <!-- Contraseña -->
         <EditText
             android:id="@+id/editTextContrasenia"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:fontFamily="sans-serif-medium"
-            android:hint="Contraseña"
-            android:textSize="24sp"
-            android:inputType="textPassword"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/errorContrasenia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:fontFamily="sans-serif-medium"
             android:textColor="@color/textoErrores"
             android:textSize="14sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
-        <!--Texto de Olvidada Contraseña-->
+        <!-- Olvidé mi contraseña -->
         <TextView
             android:id="@+id/textViewOlvidadaContrasenia"
             android:layout_width="match_parent"
@@ -129,7 +130,7 @@
             android:textColor="#4F63E2"
             android:textSize="18sp" />
 
-        <!--Botones-->
+        <!-- Botones -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -141,29 +142,37 @@
             <Button
                 android:id="@+id/botonInicioSesion"
                 android:layout_width="0dp"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
+                android:minHeight="70dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:backgroundTint="@color/fondoBotones"
                 android:fontFamily="sans-serif-medium"
                 android:text="Iniciar sesión"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/botonCrearUsuario"
                 android:layout_width="0dp"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
+                android:minHeight="70dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:backgroundTint="@color/fondoBotones"
                 android:fontFamily="sans-serif-medium"
                 android:text="Crear Usuario"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
+
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

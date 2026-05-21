@@ -8,9 +8,7 @@ import com.example.calculadoradecables.modelosDataClass.UsuarioRespuesta
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Query
 import retrofit2.Call
@@ -43,12 +41,17 @@ interface APImetodos {
     @GET("API_CalculadoraCables.php")
     fun termicos(
         @Query("metodoAPI") metodo: String,
-        @Query("proteccion") proteccionseleccionada: Int,
+        @Query("proteccion") proteccionseleccionada: Double,
         @Query("tension") tension: String
     ): Call<Termicos>
 
     @GET("API_CalculadoraCables.php")
     fun caidatensionmax(
+        @Query("metodoAPI") metodo: String,
+    ): Call<MutableList<Double>>
+
+    @GET("API_CalculadoraCables.php")
+    fun seccionconductor(
         @Query("metodoAPI") metodo: String,
     ): Call<MutableList<Double>>
 

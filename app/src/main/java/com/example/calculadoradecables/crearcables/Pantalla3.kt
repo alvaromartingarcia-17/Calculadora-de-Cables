@@ -29,6 +29,8 @@ class Pantalla3 : Fragment() {
     private var listatipodiferencial: MutableList<String> = mutableListOf()
     private var listasensibilidaddiferencial: MutableList<String> = mutableListOf()
 
+    private var listatensionmax: MutableList<Double> = mutableListOf()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,10 +41,16 @@ class Pantalla3 : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.botonSiguiente.isEnabled = false
+        binding.botonAtras.isEnabled = false
         cargardatos()
 
         binding.botonSiguiente.setOnClickListener {
             if (!viewModel.vercable) {
+                viewModel.meterdatos(
+                    "caidatensionmax",
+                    binding.spinner2.selectedItem.toString()
+                )
                 viewModel.meterdatos(
                     "tipodiferencial",
                     binding.spinner3.selectedItem.toString()
@@ -63,7 +71,10 @@ class Pantalla3 : Fragment() {
 
         binding.botonAtras.setOnClickListener {
             if (!viewModel.vercable) {
-
+                viewModel.meterdatos(
+                    "caidatensionmax",
+                    binding.spinner2.selectedItem.toString()
+                )
                 viewModel.meterdatos("tipodiferencial", binding.spinner3.selectedItem.toString())
                 viewModel.meterdatos(
                     "sensibilidadiferencial",
@@ -77,6 +88,7 @@ class Pantalla3 : Fragment() {
             findNavController().navigate(R.id.pantalla2)
         }
     }
+
     private fun cargardatos() {
         RetrofitClient.instance.tipodiferencial("tipodiferencial")
             .enqueue(object : Callback<MutableList<String>> {
@@ -95,15 +107,19 @@ class Pantalla3 : Fragment() {
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         binding.spinner3.adapter = adapter
 
-                        if (viewModel.datoscable.value?.get("tipodiferencial") != null) {
-                            val posicion =
-                                listatipodiferencial.indexOf(viewModel.datoscable.value?.get("tipodiferencial"))
-                            Log.d("nose", "posicion array $posicion")
-                            if (posicion >= 0) {
-                                binding.spinner3.setSelection(posicion)
+                        if (viewModel.vercable) {
+                            intentarPonerdatoscable()
+                        } else {
+                            if (viewModel.datoscable.value?.get("tipodiferencial") != null) {
+                                val posicion =
+                                    listatipodiferencial.indexOf(viewModel.datoscable.value?.get("tipodiferencial"))
+                                Log.d("nose", "posicion array $posicion")
+                                if (posicion >= 0) {
+                                    binding.spinner3.setSelection(posicion)
+                                }
                             }
                         }
-                        intentarPonerdatoscable()
+                        intentarHabilitarBotones()
                     }
                 }
 
@@ -133,25 +149,65 @@ class Pantalla3 : Fragment() {
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         binding.spinner4.adapter = adapter
 
-                        if (!viewModel.vercable) {
-                            binding.textViewProteccionDiferencialMensaje.setText(viewModel.termicos.proteccionDiferencial)
-                            binding.textViewSeccionConductorMensaje.setText(viewModel.termicos.seccionConductor)
-                        }
-                        if (viewModel.datoscable.value?.get("sensibilidadiferencial") != null) {
-                            val posicion = listasensibilidaddiferencial.indexOf(
-                                viewModel.datoscable.value?.get("sensibilidadiferencial")
-                            )
-                            Log.d("nose", "posicion array $posicion")
-                            if (posicion >= 0) {
-                                binding.spinner4.setSelection(posicion)
+                        if (viewModel.vercable) {
+                            intentarPonerdatoscable()
+                        } else {
+                            if (viewModel.datoscable.value?.get("sensibilidadiferencial") != null) {
+                                val posicion = listasensibilidaddiferencial.indexOf(
+                                    viewModel.datoscable.value?.get("sensibilidadiferencial")
+                                )
+                                Log.d("nose", "posicion array $posicion")
+                                if (posicion >= 0) {
+                                    binding.spinner4.setSelection(posicion)
+                                }
                             }
                         }
-                        intentarPonerdatoscable()
+                        intentarHabilitarBotones()
                     }
                 }
 
                 override fun onFailure(call: Call<MutableList<String>>, t: Throwable) {
                     Log.e("nose", "Error onfailure2: ${t.message}")
+                    mostrarSnackbar("Problemas de conexión")
+                }
+            })
+
+        RetrofitClient.instance.caidatensionmax("caidatensionmaxima")
+            .enqueue(object : Callback<MutableList<Double>> {
+                override fun onResponse(
+                    call: Call<MutableList<Double>>,
+                    response: Response<MutableList<Double>>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d("nose", response.body().toString())
+                        listatensionmax = response.body()!!
+                        val adapter = ArrayAdapter(
+                            requireContext(),
+                            android.R.layout.simple_spinner_item,
+                            response.body()!!
+                        )
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        binding.spinner2.adapter = adapter
+
+                        if (viewModel.vercable) {
+                            intentarPonerdatoscable()
+                        } else {
+                            if (viewModel.datoscable.value?.get("caidatensionmax") != null) {
+                                val posicion = listatensionmax.indexOf(
+                                    viewModel.datoscable.value?.get("caidatensionmax")?.toDouble()
+                                )
+                                Log.d("nose", "posicion array $posicion")
+                                if (posicion >= 0) {
+                                    binding.spinner2.setSelection(posicion)
+                                }
+                            }
+                        }
+                        intentarHabilitarBotones()
+                    }
+                }
+
+                override fun onFailure(call: Call<MutableList<Double>>, t: Throwable) {
+                    Log.e("nose", "Error onfailure: ${t.message}")
                     mostrarSnackbar("Problemas de conexión")
                 }
             })
@@ -174,24 +230,17 @@ class Pantalla3 : Fragment() {
 
     fun modificacionedittext() {
 
-        binding.textViewSeccionConductorMensaje.isFocusable = false
-        binding.textViewSeccionConductorMensaje.isClickable = false
-
-
-        binding.textViewProteccionDiferencialMensaje.isFocusable = false
-        binding.textViewProteccionDiferencialMensaje.isClickable = false
-
         binding.spinner4.isClickable = false
         binding.spinner4.isEnabled = false
 
         binding.spinner3.isClickable = false
         binding.spinner3.isEnabled = false
+
+        binding.spinner2.isClickable = false
+        binding.spinner2.isEnabled = false
     }
 
     fun ponerdatoscable() {
-        binding.textViewSeccionConductorMensaje.setText(viewModel.cable.seccionconductor)
-        binding.textViewProteccionDiferencialMensaje.setText(viewModel.cable.protecciondiferencial)
-
         val valorSpinner = viewModel.cable.tipodiferencial
 
         val posicion = (binding.spinner3.adapter as ArrayAdapter<String>)
@@ -205,15 +254,32 @@ class Pantalla3 : Fragment() {
             .getPosition(valorSpinner2)
 
         binding.spinner4.setSelection(posicion2)
+
+        val valorSpinner3 = viewModel.cable.caidatensionmax.toDouble()
+
+        val posicion3 = (binding.spinner2.adapter as ArrayAdapter<Double>)
+            .getPosition(valorSpinner3)
+
+        binding.spinner2.setSelection(posicion3)
     }
 
     private fun intentarPonerdatoscable() {
         if (listatipodiferencial.isNotEmpty() &&
             listasensibilidaddiferencial.isNotEmpty() &&
+            listatensionmax.isNotEmpty() &&
             viewModel.vercable
         ) {
             modificacionedittext()
             ponerdatoscable()
+        }
+    }
+    private fun intentarHabilitarBotones() {
+        if (listatipodiferencial.isNotEmpty() &&
+            listasensibilidaddiferencial.isNotEmpty() &&
+            listatensionmax.isNotEmpty()
+        ) {
+            binding.botonSiguiente.isEnabled = true
+            binding.botonAtras.isEnabled = true
         }
     }
 

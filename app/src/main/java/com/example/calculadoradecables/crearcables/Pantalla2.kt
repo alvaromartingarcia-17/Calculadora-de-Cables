@@ -21,13 +21,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class Pantalla2 : Fragment() {
     private var _binding: PantallaDatosCable2Binding? = null
     private val binding get() = _binding!!
 
     private val viewModel: CableViewModel by activityViewModels()
 
-    private var listatensionmax: MutableList<Double> = mutableListOf()
+    private var MutableListSeccionConductor: MutableList<Double> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,50 +40,51 @@ class Pantalla2 : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (!viewModel.vercable) {
-            binding.textViewProteccionTermicaMensaje.setText(viewModel.termicos.proteccionTermica)
-            binding.textViewProteccionSelecMensaje.setText(viewModel.termicos.proteccionSeleccionada.toString() + " A")
-        }
+        cargarseccionconductor()
+        binding.botonAtras.isEnabled = false
         binding.botonSiguiente.isEnabled = false
+        if (!viewModel.vercable) {
+            binding.textViewProteccionTermicaMensaje.text = viewModel.termicos.proteccionTermica
+            binding.textViewProteccionSelecMensaje.text = viewModel.termicos.proteccionSeleccionada.toString() + " A"
+            binding.textViewProteccionDiferencialMensaje.text = viewModel.termicos.proteccionDiferencial
 
-        cargardatos()
+        } else {
+            ponerdatoscable()
+        }
+
         binding.botonSiguiente.setOnClickListener {
-            if (validarPantalla2()) {
-                if (!viewModel.vercable) {
-                    viewModel.meterdatos("longitud", binding.editTextLongitud.text.toString())
-                    viewModel.meterdatos("caidatensionmax", binding.spinner2.selectedItem.toString())
-                    Log.d(
-                        "nose",
-                        "Datos del cable del view model Pantalla2 Siguiente: ${viewModel.depuraciondatos()}"
-                    )
-                }
-                findNavController().navigate(R.id.pantalla3)
-            }
+            viewModel.meterdatos(
+                "seccionconductor",
+                binding.spinner2.selectedItem.toString()
+            )
+            findNavController().navigate(R.id.pantalla3)
         }
 
         binding.botonAtras.setOnClickListener {
-            if (!viewModel.vercable) {
-                viewModel.meterdatos("longitud", binding.editTextLongitud.text.toString())
-                viewModel.meterdatos("caidatensionmax", binding.spinner2.selectedItem.toString())
-                 Log.d(
-                    "nose",
-                    "Datos del cable del view model Pantalla2 atras: ${viewModel.depuraciondatos()}"
-                )
-            }
             findNavController().navigate(R.id.pantalla1)
         }
     }
 
-    private fun cargardatos() {
-        RetrofitClient.instance.caidatensionmax("caidatensionmaxima")
+    fun ponerdatoscable() {
+        binding.spinner2.isClickable = false
+        binding.spinner2.isEnabled = false
+
+        binding.textViewProteccionSelecMensaje.text = "${viewModel.cable.proteccionseleccionada} A"
+        binding.textViewProteccionTermicaMensaje.text = viewModel.cable.protecciontermica
+        binding.textViewProteccionDiferencialMensaje.text = viewModel.cable.protecciondiferencial
+    }
+
+    fun cargarseccionconductor() {
+        RetrofitClient.instance.seccionconductor("seccionconductor")
             .enqueue(object : Callback<MutableList<Double>> {
                 override fun onResponse(
                     call: Call<MutableList<Double>>,
                     response: Response<MutableList<Double>>
                 ) {
+
                     if (response.isSuccessful) {
-                        Log.d("nose", response.body().toString())
-                        listatensionmax = response.body()!!
+                        Log.d("nose", "Tabla termicos: ${response.body()!!}")
+                        MutableListSeccionConductor = response.body()!!
                         val adapter = ArrayAdapter(
                             requireContext(),
                             android.R.layout.simple_spinner_item,
@@ -91,24 +93,27 @@ class Pantalla2 : Fragment() {
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         binding.spinner2.adapter = adapter
 
-                        if (viewModel.vercable) {
-                            intentarPonerdatoscable()
-                        } else {
-                            Log.d("nose","tabla termicos ${viewModel.termicos}")
-
-                            if (viewModel.datoscable.value?.get("caidatensionmax") != null) {
-                                val posicion = listatensionmax.indexOf(
-                                    viewModel.datoscable.value?.get("caidatensionmax")?.toDouble()
+                        if (viewModel.datoscable.value?.get("seccionconductor") != null) {
+                            val posicion =
+                                MutableListSeccionConductor.indexOf<Double>(
+                                    viewModel.datoscable.value?.get(
+                                        "seccionconductor"
+                                    )!!.toDouble()
                                 )
-                                Log.d("nose", "posicion array $posicion")
-                                if (posicion >= 0) {
-                                    binding.editTextLongitud.setText(
-                                        viewModel.datoscable.value?.get("longitud").orEmpty()
-                                    )
-                                    binding.spinner2.setSelection(posicion)
-                                }
+                            Log.d("nose", "posicion array $posicion")
+                            if (posicion >= 0) {
+                                binding.spinner2.setSelection(posicion)
+                            }
+                        } else {
+                            val posicion =
+                                MutableListSeccionConductor.indexOf<Double>(viewModel.termicos.seccionConductor)
+                            Log.d("nose", "posicion array $posicion")
+                            if (posicion >= 0) {
+                                binding.spinner2.setSelection(posicion)
                             }
                         }
+                        if (viewModel.vercable) intentarponerdatos()
+                        binding.botonAtras.isEnabled = true
                         binding.botonSiguiente.isEnabled = true
                     }
                 }
@@ -120,16 +125,13 @@ class Pantalla2 : Fragment() {
             })
     }
 
-    private fun validarPantalla2(): Boolean {
-        val longitudStr = binding.editTextLongitud.text.toString().trim()
+    private fun intentarponerdatos(){
+        val valorSpinner = viewModel.cable.seccionconductor.toDouble()
 
-        if (longitudStr.isEmpty()) {
-            binding.error4.text = "Introduce la longitud"
-            binding.error4.visibility = View.VISIBLE
-            return false
-        }else binding.error4.visibility = View.GONE
+        val posicion = (binding.spinner2.adapter as ArrayAdapter<Double>)
+            .getPosition(valorSpinner)
 
-        return true
+        binding.spinner2.setSelection(posicion)
     }
 
     private fun mostrarSnackbar(mensaje: String) {
@@ -145,46 +147,6 @@ class Pantalla2 : Fragment() {
             )
         )
         snackbar.show()
-    }
-
-    fun modificacionedittext() {
-
-        binding.editTextLongitud.isFocusable = false
-        binding.editTextLongitud.isClickable = false
-
-
-        binding.textViewProteccionSelecMensaje.isFocusable = false
-        binding.textViewProteccionSelecMensaje.isClickable = false
-
-
-        binding.textViewProteccionTermicaMensaje.isFocusable = false
-        binding.textViewProteccionTermicaMensaje.isClickable = false
-
-
-        binding.spinner2.isClickable = false
-        binding.spinner2.isEnabled = false
-    }
-
-    fun ponerdatoscable() {
-        binding.editTextLongitud.setText(viewModel.cable.longitud)
-        binding.textViewProteccionSelecMensaje.setText(viewModel.cable.proteccionseleccionada + " A")
-        binding.textViewProteccionTermicaMensaje.setText(viewModel.cable.protecciontermica)
-
-        val valorSpinner = viewModel.cable.caidatensionmax.toDouble()
-
-        val posicion = (binding.spinner2.adapter as ArrayAdapter<Double>)
-            .getPosition(valorSpinner)
-
-        binding.spinner2.setSelection(posicion)
-    }
-
-    private fun intentarPonerdatoscable() {
-        if (listatensionmax.isNotEmpty() &&
-            viewModel.vercable
-        ) {
-            modificacionedittext()
-            ponerdatoscable()
-        }
     }
 
     override fun onDestroyView() {

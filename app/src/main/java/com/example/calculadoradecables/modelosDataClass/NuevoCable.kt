@@ -7,6 +7,7 @@ data class NuevoCable(
     @SerializedName("potencia") val potencia: String,
     @SerializedName("longitud") val longitud: String,
     @SerializedName("termicos") val idtablatermicos: String,
+    @SerializedName("SECCIONCONDUCTOR") val seccionconductor: String,
     @SerializedName("caidatensionmax") val caidatensionmax: String,
     @SerializedName("tipodiferencial") val tipodiferencial: String,
     @SerializedName("sensibilidaddiferencial") val sensibilidadiferencial: String,

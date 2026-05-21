@@ -21,6 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.math.sqrt
+import kotlin.toString
 
 class Pantalla1 : Fragment() {
     private var _binding: PantallaDatosCable1Binding? = null
@@ -55,16 +56,27 @@ class Pantalla1 : Fragment() {
             if (viewModel.datoscable.value?.get("potencia") != null) {
                 binding.editTextNombreCircuito.setText(viewModel.datoscable.value?.get("nombre"))
                 binding.editTextPotencia.setText(viewModel.datoscable.value?.get("potencia"))
+                binding.editTextLongitud.setText(viewModel.datoscable.value?.get("longitud"))
+
+                val valorSpinner = viewModel.datoscable.value?.get("tipotension")
+
+                val posicion = (binding.spinner1.adapter as ArrayAdapter<String>)
+                    .getPosition(valorSpinner)
+
+                binding.spinner1.setSelection(posicion)
             }
         }
 
         binding.botonSiguiente.setOnClickListener {
             if (validarPantalla1()) {
                 if (viewModel.vercable) {
+                    calcularproteccionSeleccionada()
                     findNavController().navigate(R.id.pantalla2)
                 } else {
+                    viewModel.meterdatos("longitud", binding.editTextLongitud.text.toString())
                     viewModel.meterdatos("potencia", binding.editTextPotencia.text.toString())
                     viewModel.meterdatos("nombre", binding.editTextNombreCircuito.text.toString())
+                    viewModel.meterdatos("tipotension", binding.spinner1.selectedItem.toString())
 
                     cargartermicos(
                         calcularproteccionSeleccionada(),
@@ -124,17 +136,33 @@ class Pantalla1 : Fragment() {
         if (binding.spinner1.selectedItem.toString() == "Monofasica bipolar") {
             val intensidad = calcularproteccionSeleccionada()
             if (intensidad > 63) {
-                binding.error2.text = "La intensidad ($intensidad A) supera el límite monofásico de 63 A"
+                binding.error2.text =
+                    "La intensidad ($intensidad A) supera el límite monofásico de 63 A"
                 binding.error2.visibility = View.VISIBLE
                 return false
             }
         }
-        return true
+
+        val longitudStr = binding.editTextLongitud.text.toString()
+        if (longitudStr.isEmpty()) {
+            binding.error2.text = "Introduce la potencia"
+            binding.error2.visibility = View.VISIBLE
+            return false
+        } else {
+            val longitudInt = longitudStr.toIntOrNull()
+            if (longitudInt == null || longitudInt <= 0) {
+                binding.error4.text = "Introduce la longitud"
+                binding.error4.visibility = View.VISIBLE
+                return false
+            } else {
+                binding.error4.visibility = View.GONE
+            }
+        }
 
         return true
     }
 
-    fun cargartermicos(proteccionseleccionada: Int, tipotension: String) {
+    fun cargartermicos(proteccionseleccionada: Double, tipotension: String) {
         RetrofitClient.instance.termicos("termicos", proteccionseleccionada, tipotension)
             .enqueue(object : Callback<Termicos> {
                 override fun onResponse(
@@ -190,15 +218,19 @@ class Pantalla1 : Fragment() {
         binding.editTextPotencia.isFocusable = false
         binding.editTextPotencia.isClickable = false
 
-
         binding.spinner1.isClickable = false
         binding.spinner1.isEnabled = false
+
+        binding.editTextLongitud.isFocusable = false
+        binding.editTextLongitud.isClickable = false
     }
 
     fun ponerdatoscable() {
         binding.botonAtras.text = "Volver"
         binding.editTextNombreCircuito.setText(viewModel.cable.nombre)
         binding.editTextPotencia.setText(viewModel.cable.potencia)
+        binding.editTextLongitud.setText(viewModel.cable.longitud)
+
 
         val valorSpinner = viewModel.cable.tipotension
 
@@ -206,23 +238,27 @@ class Pantalla1 : Fragment() {
             .getPosition(valorSpinner)
 
         binding.spinner1.setSelection(posicion)
-        binding.spinner1.setSelection(posicion)
     }
 
-    fun calcularproteccionSeleccionada(): Int {
-        var intensidad = 0
+    fun calcularproteccionSeleccionada(): Double {
+        var intensidad = 0.0
         val potencia = binding.editTextPotencia.text.toString().toInt()
-        val tension = if (binding.spinner1.selectedItem.toString() == "Trifasica tetrapolar"){400}else{230}
+        val tension = if (binding.spinner1.selectedItem.toString() == "Trifasica tetrapolar") {
+            400
+        } else {
+            230
+        }
 
         if (binding.spinner1.selectedItem.toString() == "Trifasica tetrapolar") {
-            intensidad = (potencia / ((sqrt(3.0) * tension))).toInt()
+            intensidad = (potencia / ((sqrt(3.0) * tension)))
             viewModel.meterdatos("tension", binding.editTextNombreCircuito.text.toString())
 
             Log.d("nose", "intensidad trifasica tetrapolar $intensidad")
         } else {
-            intensidad = potencia / tension
+            intensidad = (potencia / tension).toDouble()
             Log.d("nose", "intensidad monofasica $intensidad")
         }
+        viewModel.meterdatos("intensidad",intensidad.toString())
         return intensidad
     }
 
