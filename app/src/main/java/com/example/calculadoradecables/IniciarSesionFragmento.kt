@@ -89,7 +89,7 @@ class IniciarSesionFragmento : Fragment() {
             return
         }
 
-        if (!correo.matches(Regex("^[a-z|0-9]+@(gmail.com|hotmail.com)$"))) {
+        if (!correo.matches(Regex("^[a-z0-9]+@[a-z0-9]+\\.[a-z]{2,}\$"))) {
             binding.errorCorreo.text = "Formato de correo incorrecto"
             binding.errorCorreo.visibility = View.VISIBLE
             return

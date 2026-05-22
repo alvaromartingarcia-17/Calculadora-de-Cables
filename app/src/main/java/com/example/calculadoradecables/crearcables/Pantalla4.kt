@@ -47,18 +47,6 @@ class Pantalla4 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         cargarDatos()
         binding.editTextFactorCorreccion.setText("1")
-        binding.spinner5.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                calcularcaidatensionmax()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
         binding.botonSiguiente.setOnClickListener {
             Log.d("nose","antes de ver cable")
             if (!viewModel.vercable) {
@@ -376,6 +364,18 @@ class Pantalla4 : Fragment() {
             listaconductormaterial.isNotEmpty() &&
             listaconductoraislamiento.isNotEmpty()
         ) {
+            binding.spinner5.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    calcularcaidatensionmax()
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+
             if (viewModel.vercable) {
                 modificacionedittext()
                 ponerdatoscable()
@@ -386,28 +386,21 @@ class Pantalla4 : Fragment() {
                         binding.editTextFactorCorreccion.setText(viewModel.datoscable.value?.get("factorcorreccionlugar"))
                     }
                     val valorSpinner = viewModel.datoscable.value?.get("tipoconductormaterial")
-
-                    val posicion = (binding.spinner5.adapter as ArrayAdapter<String>)
-                        .getPosition(valorSpinner)
-
+                    val posicion = (binding.spinner5.adapter as ArrayAdapter<String>).getPosition(valorSpinner)
                     binding.spinner5.setSelection(posicion)
 
                     val valorSpinner2 = viewModel.datoscable.value?.get("tipoconductoraislamiento")
-
-                    val posicion2 = (binding.spinner6.adapter as ArrayAdapter<String>)
-                        .getPosition(valorSpinner2)
-
+                    val posicion2 = (binding.spinner6.adapter as ArrayAdapter<String>).getPosition(valorSpinner2)
                     binding.spinner6.setSelection(posicion2)
 
                     val valorSpinner3 = viewModel.datoscable.value?.get("localizacioncanalizacion")
-
-                    val posicion3 = (binding.spinner7.adapter as ArrayAdapter<String>)
-                        .getPosition(valorSpinner3)
-
+                    val posicion3 = (binding.spinner7.adapter as ArrayAdapter<String>).getPosition(valorSpinner3)
                     binding.spinner7.setSelection(posicion3)
                 }
             }
 
+            // Calculamos siempre al terminar de cargar, independientemente del spinner
+            calcularcaidatensionmax()
         }
     }
 
