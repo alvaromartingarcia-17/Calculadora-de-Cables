@@ -413,8 +413,8 @@ class Pantalla4 : Fragment() {
             0.018
         }
         val tension =
-            if (viewModel.datoscable.value?.get("tipotension")
-                    .equals("Trifasica tetrapolar") || viewModel.cable.tipotension.equals("Trifasica tetrapolar")
+            if (viewModel.datoscable.value?.get("tipotension").equals("Trifasica tetrapolar") ||
+                (viewModel.vercable && viewModel.cable.tipotension.equals("Trifasica tetrapolar"))
             ) {
                 400
             } else {
