@@ -46,6 +46,7 @@ class Pantalla4 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         cargarDatos()
+        binding.editTextFactorCorreccion.setText("1")
         binding.spinner5.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -59,8 +60,11 @@ class Pantalla4 : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         binding.botonSiguiente.setOnClickListener {
+            Log.d("nose","antes de ver cable")
             if (!viewModel.vercable) {
+                Log.d("nose","despues de ver cable")
                 if (validarPantalla4()) {
+                    Log.d("nose","despues de validar pantalla")
                     viewModel.meterdatos(
                         "tipoconductormaterial",
                         binding.spinner5.selectedItem?.toString().orEmpty()
@@ -112,8 +116,7 @@ class Pantalla4 : Fragment() {
                             }
                         })
                 }
-            }
-            findNavController().navigate(R.id.fragmentoVerCables)
+            }else{ findNavController().navigate(R.id.fragmentoVerCables) }
         }
 
         binding.botonAtras.setOnClickListener {

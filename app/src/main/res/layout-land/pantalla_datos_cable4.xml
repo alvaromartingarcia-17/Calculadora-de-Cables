@@ -135,7 +135,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Caida de tension máxima:"
+                android:text="Caida de tension del circuito:"
                 android:textSize="24sp" />
 
             <TextView

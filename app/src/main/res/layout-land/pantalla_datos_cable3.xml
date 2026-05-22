@@ -38,7 +38,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:ems="10"
                 android:fontFamily="sans-serif-medium"
-                android:text="Caída de tensión máxima:"
+                android:text="Caída de tensión máxima admisible:"
                 android:textSize="24sp" />
 
             <Spinner

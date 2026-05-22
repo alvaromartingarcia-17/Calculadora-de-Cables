@@ -136,7 +136,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Caida de tension máxima:"
+                android:text="Caida de tension del circuito:"
                 android:textSize="24sp" />
 
             <TextView
@@ -196,7 +196,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="@color/fondoBotones"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Terminarx"
+                    android:text="Terminar"
                     android:textColor="@color/white"
                     android:textSize="22sp"
                     android:textStyle="bold" />
