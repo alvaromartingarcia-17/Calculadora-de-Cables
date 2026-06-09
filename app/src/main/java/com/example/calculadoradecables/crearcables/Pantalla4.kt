@@ -407,6 +407,15 @@ class Pantalla4 : Fragment() {
     private fun calcularcaidatensionmax() {
         var longitud = 0.0
         var seccionconductor = 0.0
+
+        Log.d("nose", "numerocable = ${viewModel.datoscable.value?.get("numerocable")}")
+
+        val numeroCables =
+            if (!viewModel.vercable) {
+                viewModel.datoscable.value?.get("numerocable")!!.toInt()
+            } else {
+                viewModel.cable.numerocable
+            }
         val RO = if (binding.spinner5.selectedItem.toString().equals("Aluminio")) {
             0.029
         } else {
@@ -422,11 +431,13 @@ class Pantalla4 : Fragment() {
             }
         val intensidad = viewModel.datoscable.value?.get("intensidad")!!.toDouble()
         if (!viewModel.vercable) {
-            longitud = viewModel.datoscable.value?.get("longitud")!!.toDouble()
-            seccionconductor = viewModel.datoscable.value?.get("seccionconductor")!!.toDouble()
+            longitud = viewModel.datoscable.value?.get("longitud")?.toDoubleOrNull() ?: 0.0
+            seccionconductor =
+                (viewModel.datoscable.value?.get("seccionconductor")?.toDoubleOrNull() ?: 0.0) * numeroCables
         } else {
-            longitud = viewModel.cable.longitud.toDouble()
-            seccionconductor = viewModel.cable.seccionconductor.toDouble()
+            longitud = viewModel.cable.longitud.toDoubleOrNull() ?: 0.0
+            seccionconductor =
+                (viewModel.cable.seccionconductor.toDoubleOrNull() ?: 0.0) * numeroCables
         }
         Log.d(
             "nose", """

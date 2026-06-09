@@ -48,30 +48,62 @@ class Pantalla2 : Fragment() {
             binding.textViewProteccionSelecMensaje.text = viewModel.termicos.proteccionSeleccionada.toString() + " A"
             binding.textViewProteccionDiferencialMensaje.text = viewModel.termicos.proteccionDiferencial
 
+
         } else {
+            Log.d("nose", "Entrando en modo ver cable")
+            Log.d("nose", "Numerocable recibido: ${viewModel.cable.numerocable}")
+
             ponerdatoscable()
+        }
+        //cuando no tenemos valor  por defecto es 1
+        if (!viewModel.vercable) {
+            if (viewModel.datoscable.value?.get("numerocable") == null) {
+                binding.editTextNumeroCablesMensaje.setText("1")
+            } else {
+                binding.editTextNumeroCablesMensaje.setText(
+                    viewModel.datoscable.value?.get("numerocable")
+                )
+            }
         }
 
         binding.botonSiguiente.setOnClickListener {
             viewModel.meterdatos(
+                "numerocable",
+                binding.editTextNumeroCablesMensaje.text.toString()
+            )
+            viewModel.meterdatos(
                 "seccionconductor",
                 binding.spinner2.selectedItem.toString()
             )
+            //si es falso regresa
+            if (!validarnumero()) return@setOnClickListener
+
             findNavController().navigate(R.id.pantalla3)
         }
 
         binding.botonAtras.setOnClickListener {
+            viewModel.meterdatos(
+                "numerocable",
+                binding.editTextNumeroCablesMensaje.text.toString()
+            )
             findNavController().navigate(R.id.pantalla1)
         }
     }
 
     fun ponerdatoscable() {
+
+        Log.d("nose", "Numerocable en objeto cable: ${viewModel.cable.numerocable}")
+
         binding.spinner2.isClickable = false
         binding.spinner2.isEnabled = false
+        binding.editTextNumeroCablesMensaje.isEnabled = false
 
         binding.textViewProteccionSelecMensaje.text = "${viewModel.cable.proteccionseleccionada} A"
         binding.textViewProteccionTermicaMensaje.text = viewModel.cable.protecciontermica
         binding.textViewProteccionDiferencialMensaje.text = viewModel.cable.protecciondiferencial
+        binding.editTextNumeroCablesMensaje.setText(
+            viewModel.cable.numerocable.toString()
+        )
     }
 
     fun cargarseccionconductor() {
@@ -147,6 +179,31 @@ class Pantalla2 : Fragment() {
             )
         )
         snackbar.show()
+    }
+    private fun validarnumero(): Boolean {
+        val texto = binding.editTextNumeroCablesMensaje.text.toString().trim()
+
+        if (texto.isEmpty()) {
+            binding.error4.text = "Introduce el número de cables"
+            binding.error4.visibility = View.VISIBLE
+            return false
+        }
+        val numero = texto.toIntOrNull()
+
+        if (numero == null) {
+            binding.error4.text = "Solo se permiten números enteros"
+            binding.error4.visibility = View.VISIBLE
+            return false
+        }
+
+        if (numero <= 0) {
+            binding.error4.text = "El número debe ser mayor que 0"
+            binding.error4.visibility = View.VISIBLE
+            return false
+        }
+
+        binding.error4.visibility = View.GONE
+        return true
     }
 
     override fun onDestroyView() {

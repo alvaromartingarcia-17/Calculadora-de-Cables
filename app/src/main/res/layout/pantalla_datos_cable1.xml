@@ -80,7 +80,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Potencia:"
+                android:text="Potencia (W):"
                 android:textSize="24sp" />
 
             <EditText
@@ -139,9 +139,9 @@
                 android:padding="5dp"
                 android:textSize="24sp" />
 
-            <!-- Error 4 -->
+            <!-- Error 3 -->
             <TextView
-                android:id="@+id/error4"
+                android:id="@+id/error3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"

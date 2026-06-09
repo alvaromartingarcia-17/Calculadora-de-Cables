@@ -17,6 +17,7 @@ class cablesAdapter(private val listaCables: MutableList<Cable>) :
         val nombre: TextView = view.findViewById(R.id.textViewNombre)
         val potencia:  TextView = view.findViewById(R.id.textViewPotencia)
         val proteccionSelecc:  TextView = view.findViewById(R.id.textViewProteccionSelec)
+        val numeroCables :  TextView = view.findViewById(R.id.textViewNumeroCables)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): cablesAdapter {
@@ -31,8 +32,9 @@ class cablesAdapter(private val listaCables: MutableList<Cable>) :
         val cable = listaCables[posicion]
 
         holder.nombre.text = "Nombre del circuito: ${cable.nombre}"
-        holder.potencia.text = "Potencia: ${cable.potencia}"
+        holder.potencia.text = "Potencia (W): ${cable.potencia} W"
         holder.proteccionSelecc.text = "Protección seleccionada (A): ${cable.proteccionseleccionada}"
+        holder.numeroCables.text = "Número de cables necesarios: ${cable.numerocable}"
 
 
         holder.itemView.setOnClickListener {

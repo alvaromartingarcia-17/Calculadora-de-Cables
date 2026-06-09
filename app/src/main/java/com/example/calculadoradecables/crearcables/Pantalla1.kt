@@ -151,11 +151,11 @@ class Pantalla1 : Fragment() {
         } else {
             val longitudInt = longitudStr.toIntOrNull()
             if (longitudInt == null || longitudInt <= 0) {
-                binding.error4.text = "Introduce la longitud"
-                binding.error4.visibility = View.VISIBLE
+                binding.error3.text = "Introduce la longitud"
+                binding.error3.visibility = View.VISIBLE
                 return false
             } else {
-                binding.error4.visibility = View.GONE
+                binding.error3.visibility = View.GONE
             }
         }
 

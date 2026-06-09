@@ -38,6 +38,7 @@ class CableViewModel : ViewModel() {
         Log.d("nose", "localizacioncanalizacion: ${data["localizacioncanalizacion"]}")
         Log.d("nose", "factorcorreccionlugar: ${data["factorcorreccionlugar"]}")
         Log.d("nose", "factorcorrecciontipo: ${data["factorcorrecciontipo"]}")
+
         return try {
             NuevoCable(
                 nombre = data["nombre"] ?: return null,
@@ -52,8 +53,8 @@ class CableViewModel : ViewModel() {
                 tipoconductoraislamiento = data["tipoconductoraislamiento"] ?: return null,
                 localizacioncanalizacion = data["localizacioncanalizacion"] ?: return null,
                 factorcorreccionlugar = data["factorcorreccionlugar"] ?: return null,
-                usuario = data["usuario"] ?: ""
-            )
+                usuario = data["usuario"] ?: "",
+                numerocable = data["numerocable"]?.toIntOrNull() ?: return null            )
         } catch (e: Exception) {
             Log.d("nose",e.toString())
             null }

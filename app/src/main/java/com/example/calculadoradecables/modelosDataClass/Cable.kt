@@ -18,5 +18,6 @@ data class Cable(
     @SerializedName("tipoconductoraislamiento") val tipoconductorasilamiento: String,
     @SerializedName("localizacioncanalizacion") val localizacioncanalizacion: String,
     @SerializedName("factorcorreccionlugar") val factorcorreccionlugar: String,
-    @SerializedName("usuario") val usuario: String
+    @SerializedName("usuario") val usuario: String,
+    @SerializedName("numerocable") val numerocable: Int
 )

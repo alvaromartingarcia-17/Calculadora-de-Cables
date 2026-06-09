@@ -139,9 +139,9 @@
                 android:padding="5dp"
                 android:textSize="24sp" />
 
-            <!-- Error 4 -->
+            <!-- Error 3 -->
             <TextView
-                android:id="@+id/error4"
+                android:id="@+id/error3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -150,7 +150,7 @@
                 android:textColor="@color/textoErrores"
                 android:textSize="14sp"
                 android:fontFamily="sans-serif-medium"
-                android:text=""
+                android:text="text"
                 android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/editTextLongitud"
                 app:layout_constraintStart_toStartOf="@id/editTextLongitud"

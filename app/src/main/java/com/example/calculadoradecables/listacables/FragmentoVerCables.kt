@@ -63,6 +63,10 @@ class FragmentoVerCables : Fragment() {
                         cablesMutableList = response.body()!!
                         val adapter = cablesAdapter(cablesMutableList)
                         adapter.onItemClick = { cable ->
+
+                            Log.d("nose", "Numero cables BD: ${cable.numerocable}")
+                            Log.d("nose", "Cable completo: $cable")
+
                             viewModel.vercable = true
                             viewModel.cable = cable
                             findNavController().navigate(R.id.pantalla1)
